@@ -1,66 +1,42 @@
 package securityteam.ece.uowm;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
-import android.content.Context;
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.IOException;
-import java.io.InputStream;
+import java.lang.ref.WeakReference;
 
 public class MainActivity extends AppCompatActivity {
-
+    WeakReference<Activity> activityreference ;
+    Button start_button;
+    Button stop_button;
+    TextView captureCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        activityreference = new WeakReference<Activity>(this);
 
-        final String COMMAND = "su -c " + getFileStreamPath ("tcpdump") + " -i any -U -w - | tee "+ Environment.getExternalStorageDirectory().getAbsolutePath()+ "/mypcap.pcap |" + getFileStreamPath ("tcpdump")+" -r -";
-
-
-        final ExecCommand exec = new ExecCommand();
-        try {
-
-            File file = getFileStreamPath ("tcpdump");
-            if (!file.exists()){
-                Log.d("TCPDUMP_LOCATION","TCPDUMP binary not found, installing to " + file.getAbsolutePath());
-                InputStream ins = getAssets().open("tcpdump");
-                byte[] buffer = new byte[ins.available()];
-                ins.read(buffer);
-                ins.close();
-                FileOutputStream fos = openFileOutput("tcpdump", Context.MODE_PRIVATE);
-                fos.write(buffer);
-                fos.close();
-                file = getFileStreamPath ("tcpdump");
-                file.setExecutable(true);
-            }
-            else{
-                Log.d("TCPDUMP_LOCATION","TCPDUMP found " + file.getAbsolutePath());
-
-
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
+        final CommandExecutor exec = new CommandExecutor();
+        final Capture_Root capture_root = new Capture_Root(activityreference);
+        start_button = findViewById(R.id.start_tcpdump);
+        stop_button = findViewById(R.id.stop_tcpdump);
+        captureCount = ((TextView)findViewById(R.id.textView));
         @SuppressLint("StaticFieldLeak") final AsyncTask a = new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] objects) {
                 while (true){
-
-//                    onProgressUpdate(exec.getPacketCount());
                     publishProgress(exec.getPacketCount());
                     try {
                         Thread.sleep(1);
@@ -73,40 +49,52 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onProgressUpdate(Object[] values) {
                 super.onProgressUpdate(values);
-                ((TextView)findViewById(R.id.textView)).setText(String.valueOf(values[0]));
+                captureCount.setText(String.valueOf(values[0]));
             }
         };
         a.execute();
 
 
-        findViewById(R.id.start_tcpdump).setOnClickListener(new View.OnClickListener() {
+        start_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                v.setEnabled(false);
-                findViewById(R.id.stop_tcpdump).setEnabled(true);
-
-//                a.execute();
                 Thread t = new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        try {
+                            Runtime.getRuntime().exec("su");
+                            activityreference.get().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    start_button.setEnabled(false);
+                                    stop_button.setEnabled(true);
+                                }
+                            });
+                            Log.e("SUCHECK","SUCCESS. Executing: " + capture_root.getCaptureCommand());
+                            exec.executeCommand(capture_root.getCaptureCommand());
 
-                        exec.startNow(COMMAND);
-
-
+                        } catch (IOException e) {
+                            Log.e("SUCHECK","FAIL");
+                            e.printStackTrace();
+                            activityreference.get().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(activityreference.get(),"Root access not detected or not allowed.",Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
                     }
                 });
                 t.start();
 
             }
         });
-        findViewById(R.id.stop_tcpdump).setOnClickListener(new View.OnClickListener() {
+        stop_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                v.setEnabled(false);
-                findViewById(R.id.start_tcpdump).setEnabled(true);
-//                a.cancel(true);
-
-                exec.StopExecution();
+                stop_button.setEnabled(false);
+                start_button.setEnabled(true);
+                exec.stopRunningExecution();
 
             }
         });

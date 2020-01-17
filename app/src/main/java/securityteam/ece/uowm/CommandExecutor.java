@@ -11,7 +11,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 
-public class ExecCommand {
+public class CommandExecutor {
     private Semaphore outputSem;
     private String output;
     private Semaphore errorSem;
@@ -106,7 +106,7 @@ public class ExecCommand {
         }
     }
 
-    public ExecCommand(String command, String input) {
+    public CommandExecutor(String command, String input) {
         try {
             p = Runtime.getRuntime().exec(makeArray(command));
             new InputWriter(input).start();
@@ -120,14 +120,14 @@ public class ExecCommand {
         }
     }
 
-    public ExecCommand() {
+    public CommandExecutor() {
         outputReader = new OutputReader();
         errorReader = new ErrorReader();
         lineCount=0;
 
 
     }
-    public void startNow(String command2){
+    public void executeCommand(String command2){
         this.command = command2;
         outputReader = new OutputReader();
         errorReader = new ErrorReader();
@@ -142,7 +142,11 @@ public class ExecCommand {
 
                     p.waitFor();
                     p.destroy();
-                } catch (Exception e) {
+                }
+                catch(IOException io){
+                    Log.e("Starting","IOEXCEPTION -> "+io.getMessage());
+                }
+                catch (Exception e) {
                     e.printStackTrace();
                     p.destroy();
                 }
@@ -151,7 +155,7 @@ public class ExecCommand {
          t.run();
     }
 
-    public void StopExecution(){
+    public void stopRunningExecution(){
 
         t.interrupt();
 
@@ -161,7 +165,8 @@ public class ExecCommand {
             f.setAccessible(true);
             pid = f.getInt(p);
             f.setAccessible(false);
-            Runtime.getRuntime().exec("su -c kill -2 " + pid);
+            Log.d("STOP","Stopping tcpdump: "+ "su -c kill " + pid);
+            Runtime.getRuntime().exec("su -c kill " + pid);
         } catch (IOException | NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }

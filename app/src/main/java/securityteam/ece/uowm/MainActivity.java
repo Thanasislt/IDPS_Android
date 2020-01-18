@@ -2,11 +2,14 @@ package securityteam.ece.uowm;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     Button start_button;
     Button stop_button;
     TextView captureCount;
+    Capture_Root capture_root;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
         activityreference = new WeakReference<Activity>(this);
 
         final CommandExecutor exec = new CommandExecutor();
-        final Capture_Root capture_root = new Capture_Root(activityreference);
+        capture_root = new Capture_Root(activityreference);
+
         start_button = findViewById(R.id.start_tcpdump);
         stop_button = findViewById(R.id.stop_tcpdump);
         captureCount = ((TextView)findViewById(R.id.textView));
@@ -70,7 +76,9 @@ public class MainActivity extends AppCompatActivity {
                                     stop_button.setEnabled(true);
                                 }
                             });
+                            UpdateSettings();
                             Log.e("SUCHECK","SUCCESS. Executing: " + capture_root.getCaptureCommand());
+
                             exec.executeCommand(capture_root.getCaptureCommand());
 
                         } catch (IOException e) {
@@ -98,6 +106,25 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    void UpdateSettings(){
+        RadioGroup rg =  findViewById(R.id.radioGroup);
+        RadioButton rb = findViewById(rg.getCheckedRadioButtonId());
+
+        String a = (String) rb.getText();
+
+        if(a=="ALL"){
+            capture_root.updateCaptureCommand("");
+        }
+        else if(a=="TCP"){
+            capture_root.updateCaptureCommand("tcp ");
+        }
+        else if(a=="UDP"){
+            capture_root.updateCaptureCommand("udp ");
+        }
+
+
     }
 
 

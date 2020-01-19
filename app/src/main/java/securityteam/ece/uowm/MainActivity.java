@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     Button start_button;
     Button stop_button;
     TextView captureCount;
-    Capture_Root capture_root;
+    private Capture_Root capture_root;
 
 
     @Override
@@ -78,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
                             });
                             UpdateSettings();
                             Log.e("SUCHECK","SUCCESS. Executing: " + capture_root.getCaptureCommand());
-
                             exec.executeCommand(capture_root.getCaptureCommand());
 
                         } catch (IOException e) {
@@ -111,19 +111,29 @@ public class MainActivity extends AppCompatActivity {
     void UpdateSettings(){
         RadioGroup rg =  findViewById(R.id.radioGroup);
         RadioButton rb = findViewById(rg.getCheckedRadioButtonId());
-
         String a = (String) rb.getText();
 
-        if(a=="ALL"){
-            capture_root.updateCaptureCommand("");
+
+        String options = "";
+
+        if(a.equals("ALL")){
+            options = options + "";
         }
-        else if(a=="TCP"){
-            capture_root.updateCaptureCommand("tcp ");
+        else if(a.equals("TCP")){
+            options+="tcp";
         }
-        else if(a=="UDP"){
-            capture_root.updateCaptureCommand("udp ");
+        else if(a.equals("UDP")){
+            options+="udp";
         }
 
+        EditText ed =  findViewById(R.id.host_text);
+
+        if(ed.getText().toString().matches("^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$")){
+            options+=" host " +ed.getText().toString();
+        }
+
+
+        capture_root.updateCaptureCommand(options);
 
     }
 

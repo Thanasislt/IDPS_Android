@@ -52,7 +52,7 @@ public class Capture_Root {
     public void updateCaptureCommand(String a){
 
 
-        this.captureCommand = "su -c " + tcpdump.getAbsolutePath() + " -U -i any " + a + "-w - | tee "+ captureLocation+ "/capture.pcap |" + tcpdump.getAbsolutePath()+" -r -";
+        this.captureCommand = "su -c " + tcpdump.getAbsolutePath() + " -U -i any " + a + " -w - | tee "+ captureLocation+ "/capture.pcap |" + tcpdump.getAbsolutePath()+" -r -";
     }
 
     public String getCaptureCommand() {

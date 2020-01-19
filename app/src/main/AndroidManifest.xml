@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity"
+        <activity android:name=".SelectMethod"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden">
 
             <intent-filter>
@@ -20,6 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <activity
+            android:name=".MainActivity">
+        </activity>
+
         <service
             android:name="securityteam.ece.uowm.LocalVPNService"
             android:permission="android.permission.BIND_VPN_SERVICE" >

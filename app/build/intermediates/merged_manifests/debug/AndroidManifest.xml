@@ -22,13 +22,15 @@
         android:testOnly="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="securityteam.ece.uowm.MainActivity"
+            android:name="securityteam.ece.uowm.SelectMethod"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name="securityteam.ece.uowm.MainActivity" >
         </activity>
 
         <service

@@ -5,21 +5,20 @@ import android.util.Log;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.InterruptedIOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 
-public class CommandExecutor {
+public class tcpdumpExecutor {
     private Semaphore outputSem;
     private String output;
     private Semaphore errorSem;
     private String error;
-    private Process p;
-    Thread t;
+    private Process tcpdumpProcess;
+    Thread captureThread;
     private String command="";
-    int lineCount=0;
+    int captureCount =0;
     OutputReader outputReader = new OutputReader();
     ErrorReader errorReader = new ErrorReader();
     private class InputWriter extends Thread {
@@ -30,7 +29,7 @@ public class CommandExecutor {
         }
 
         public void run() {
-            PrintWriter pw = new PrintWriter(p.getOutputStream());
+            PrintWriter pw = new PrintWriter(tcpdumpProcess.getOutputStream());
             pw.println(input);
             pw.flush();
         }
@@ -38,7 +37,7 @@ public class CommandExecutor {
 
 
     public int getPacketCount(){
-        return lineCount;
+        return captureCount;
     }
 
 
@@ -55,12 +54,12 @@ public class CommandExecutor {
         public void run() {
             try {
                 StringBuilder readBuffer = new StringBuilder();
-                BufferedReader isr = new BufferedReader(new InputStreamReader(p .getInputStream()));
+                BufferedReader isr = new BufferedReader(new InputStreamReader(tcpdumpProcess.getInputStream()));
                 String buff;
                 while ((buff = isr.readLine()) != null) {
-                    readBuffer.append(buff);
-                    Log.d("TCPDUMP",buff);
-                    lineCount++;
+//                    readBuffer.append(buff);
+                    Log.d("Executor",buff);
+                    captureCount++;
                 }
                 output = readBuffer.toString();
                 outputSem.release();
@@ -86,7 +85,7 @@ public class CommandExecutor {
         public void run() {
             try {
                 StringBuffer readBuffer = new StringBuffer();
-                BufferedReader isr = new BufferedReader(new InputStreamReader(p
+                BufferedReader isr = new BufferedReader(new InputStreamReader(tcpdumpProcess
                         .getErrorStream()));
                 String buff = new String();
                 while ((buff = isr.readLine()) != null) {
@@ -106,13 +105,13 @@ public class CommandExecutor {
         }
     }
 
-    public CommandExecutor(String command, String input) {
+    public tcpdumpExecutor(String command, String input) {
         try {
-            p = Runtime.getRuntime().exec(makeArray(command));
+            tcpdumpProcess = Runtime.getRuntime().exec(makeArray(command));
             new InputWriter(input).start();
             new OutputReader().start();
             new ErrorReader().start();
-            p.waitFor();
+            tcpdumpProcess.waitFor();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -120,60 +119,58 @@ public class CommandExecutor {
         }
     }
 
-    public CommandExecutor() {
+    public tcpdumpExecutor() {
         outputReader = new OutputReader();
         errorReader = new ErrorReader();
-        lineCount=0;
+        captureCount =0;
 
 
     }
-    public void executeCommand(String command2){
-        this.command = command2;
+    public void executeCommand(String cmd){
+        this.command = cmd;
         outputReader = new OutputReader();
         errorReader = new ErrorReader();
-        lineCount=0;
-         t = new Thread(new Runnable() {
+        captureCount =0;
+         captureThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    p = Runtime.getRuntime().exec(makeArray(command));
+                    tcpdumpProcess = Runtime.getRuntime().exec(makeArray(command));
                     outputReader.start();
                     errorReader.start();
 
-                    p.waitFor();
-                    p.destroy();
+                    tcpdumpProcess.waitFor();
+                    tcpdumpProcess.destroy();
                 }
                 catch(IOException io){
                     Log.e("Starting","IOEXCEPTION -> "+io.getMessage());
+                    tcpdumpProcess.destroy();
                 }
                 catch (Exception e) {
                     e.printStackTrace();
-                    p.destroy();
+                    tcpdumpProcess.destroy();
                 }
             }
         });
-         t.run();
+         captureThread.run();
     }
 
     public void stopRunningExecution(){
 
-        t.interrupt();
+        captureThread.interrupt();
 
         try {
             int pid=-1;
-            Field f = p.getClass().getDeclaredField("pid");
+            Field f = tcpdumpProcess.getClass().getDeclaredField("pid");
             f.setAccessible(true);
-            pid = f.getInt(p);
+            pid = f.getInt(tcpdumpProcess);
             f.setAccessible(false);
-            Log.d("STOP","Stopping tcpdump: "+ "su -c kill " + pid);
-            Runtime.getRuntime().exec("su -c kill " + pid);
+            Log.d("STOP","Stopping tcpdump: "+ "su -c killall -q  -2 tcpdump ");
+            Runtime.getRuntime().exec("su -c killall -q  -2 tcpdump ");
         } catch (IOException | NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
+            Log.e("STOP","FAILED TO STOP TCPDUMP");
         }
-//        if (p!=null){
-//           p.destroy();
-//
-//        }
     }
 
     public String getOutput() {

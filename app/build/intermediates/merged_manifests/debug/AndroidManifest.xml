@@ -21,7 +21,9 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
-        <activity android:name="securityteam.ece.uowm.MainActivity" >
+        <activity
+            android:name="securityteam.ece.uowm.MainActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

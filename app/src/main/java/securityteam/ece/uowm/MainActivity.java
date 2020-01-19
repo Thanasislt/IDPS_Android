@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         activityreference = new WeakReference<Activity>(this);
 
-        final CommandExecutor exec = new CommandExecutor();
+        final tcpdumpExecutor exec = new tcpdumpExecutor();
         final Capture_Root capture_root = new Capture_Root(activityreference);
         start_button = findViewById(R.id.start_tcpdump);
         stop_button = findViewById(R.id.stop_tcpdump);

@@ -24,7 +24,9 @@ public class MainActivity extends AppCompatActivity {
     Button start_button;
     Button stop_button;
     TextView captureCount;
-
+    Capture_Root captureroot;
+    tcpdumpExecutor exec = new tcpdumpExecutor();
+    Capture_Root capture_root;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
         activityreference = new WeakReference<Activity>(this);
 
 
-        final tcpdumpExecutor exec = new tcpdumpExecutor();
-        final Capture_Root capture_root = new Capture_Root(activityreference);
+        capture_root = new Capture_Root(activityreference);
+        captureroot = capture_root;
         start_button = findViewById(R.id.start_tcpdump);
         stop_button = findViewById(R.id.stop_tcpdump);
         captureCount = ((TextView)findViewById(R.id.textView));
@@ -130,8 +132,8 @@ public class MainActivity extends AppCompatActivity {
             options+=" host " +ed.getText().toString();
         }
 
-
-        capture_root.updateCaptureCommand(options);
+        if(captureroot!=null)
+            captureroot.updateCaptureCommand(options);
 
     }
 

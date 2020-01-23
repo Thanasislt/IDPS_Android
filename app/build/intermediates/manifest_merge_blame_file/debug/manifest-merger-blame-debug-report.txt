@@ -18,11 +18,11 @@
 12-->/home/kiriazis/Desktop/IDPS_Android/app/src/main/AndroidManifest.xml:5:22-74
 13
 14    <application
-14-->/home/kiriazis/Desktop/IDPS_Android/app/src/main/AndroidManifest.xml:6:5-31:19
+14-->/home/kiriazis/Desktop/IDPS_Android/app/src/main/AndroidManifest.xml:6:5-36:19
 15        android:allowBackup="true"
 15-->/home/kiriazis/Desktop/IDPS_Android/app/src/main/AndroidManifest.xml:7:9-35
 16        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-16-->[androidx.core:core:1.0.1] /home/kiriazis/.gradle/caches/transforms-2/files-2.1/c0a39027978b83a483a047f5c31d0c4e/core-1.0.1/AndroidManifest.xml:22:18-86
+16-->[androidx.core:core:1.0.1] /home/kiriazis/.gradle/caches/transforms-2/files-2.1/8f8ab13dc8f4e84e14a8bb3d9ac92bc4/core-1.0.1/AndroidManifest.xml:22:18-86
 17        android:debuggable="true"
 18        android:icon="@mipmap/ic_launcher"
 18-->/home/kiriazis/Desktop/IDPS_Android/app/src/main/AndroidManifest.xml:8:9-43
@@ -37,7 +37,7 @@
 23-->/home/kiriazis/Desktop/IDPS_Android/app/src/main/AndroidManifest.xml:12:9-40
 24        <activity
 24-->/home/kiriazis/Desktop/IDPS_Android/app/src/main/AndroidManifest.xml:14:9-22:20
-25            android:name="securityteam.ece.uowm.MainActivity"
+25            android:name="securityteam.ece.uowm.SelectMethod"
 25-->/home/kiriazis/Desktop/IDPS_Android/app/src/main/AndroidManifest.xml:14:19-47
 26            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden" >
 26-->/home/kiriazis/Desktop/IDPS_Android/app/src/main/AndroidManifest.xml:15:13-87
@@ -52,20 +52,24 @@
 30-->/home/kiriazis/Desktop/IDPS_Android/app/src/main/AndroidManifest.xml:20:27-74
 31            </intent-filter>
 32        </activity>
-33
-34        <service
-34-->/home/kiriazis/Desktop/IDPS_Android/app/src/main/AndroidManifest.xml:23:9-30:19
-35            android:name="securityteam.ece.uowm.LocalVPNService"
-35-->/home/kiriazis/Desktop/IDPS_Android/app/src/main/AndroidManifest.xml:24:13-65
-36            android:permission="android.permission.BIND_VPN_SERVICE" >
-36-->/home/kiriazis/Desktop/IDPS_Android/app/src/main/AndroidManifest.xml:25:13-69
-37            <intent-filter>
-37-->/home/kiriazis/Desktop/IDPS_Android/app/src/main/AndroidManifest.xml:27:13-29:29
-38                <action android:name="android.net.VpnService" />
-38-->/home/kiriazis/Desktop/IDPS_Android/app/src/main/AndroidManifest.xml:28:17-65
-38-->/home/kiriazis/Desktop/IDPS_Android/app/src/main/AndroidManifest.xml:28:25-62
-39            </intent-filter>
-40        </service>
-41    </application>
-42
-43</manifest>
+33        <activity android:name="securityteam.ece.uowm.MainActivity" >
+33-->/home/kiriazis/Desktop/IDPS_Android/app/src/main/AndroidManifest.xml:24:9-26:20
+33-->/home/kiriazis/Desktop/IDPS_Android/app/src/main/AndroidManifest.xml:25:13-41
+34        </activity>
+35
+36        <service
+36-->/home/kiriazis/Desktop/IDPS_Android/app/src/main/AndroidManifest.xml:28:9-35:19
+37            android:name="securityteam.ece.uowm.LocalVPNService"
+37-->/home/kiriazis/Desktop/IDPS_Android/app/src/main/AndroidManifest.xml:29:13-65
+38            android:permission="android.permission.BIND_VPN_SERVICE" >
+38-->/home/kiriazis/Desktop/IDPS_Android/app/src/main/AndroidManifest.xml:30:13-69
+39            <intent-filter>
+39-->/home/kiriazis/Desktop/IDPS_Android/app/src/main/AndroidManifest.xml:32:13-34:29
+40                <action android:name="android.net.VpnService" />
+40-->/home/kiriazis/Desktop/IDPS_Android/app/src/main/AndroidManifest.xml:33:17-65
+40-->/home/kiriazis/Desktop/IDPS_Android/app/src/main/AndroidManifest.xml:33:25-62
+41            </intent-filter>
+42        </service>
+43    </application>
+44
+45</manifest>

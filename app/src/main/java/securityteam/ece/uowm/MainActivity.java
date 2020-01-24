@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -59,6 +61,44 @@ public class MainActivity extends AppCompatActivity {
                 captureCount.setText(String.valueOf(values[0]));
             }
         };
+
+        CheckBox all=findViewById(R.id.checkBoxAll);
+
+        all.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                CheckBox all,tcp,udp,icmp;
+                tcp=findViewById((R.id.checkBoxTcp));
+                udp=findViewById((R.id.checkBoxUdp));
+                icmp=findViewById((R.id.checkBoxIcmp));
+
+                if(b==true){
+                    tcp.setChecked(false);
+                    tcp.setEnabled(false);
+
+                    udp.setChecked(false);
+                    udp.setEnabled(false);
+
+                    icmp.setChecked(false);
+                    icmp.setEnabled(false);
+                }
+                else{
+
+                    tcp.setEnabled(true);
+
+
+                    udp.setEnabled(true);
+
+
+                    icmp.setEnabled(true);
+                }
+
+
+            }
+        });
+
+
+
         a.execute();
 
 
@@ -109,21 +149,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void UpdateSettings(){
-        RadioGroup rg =  findViewById(R.id.radioGroup);
-        RadioButton rb = findViewById(rg.getCheckedRadioButtonId());
-        String a = (String) rb.getText();
 
+        CheckBox all,tcp,udp,icmp;
+        all=findViewById(R.id.checkBoxAll);
+        tcp=findViewById((R.id.checkBoxTcp));
+        udp=findViewById((R.id.checkBoxUdp));
+        icmp=findViewById((R.id.checkBoxIcmp));
+
+        int countChecks=0;
 
         String options = "";
 
-        if(a.equals("ALL")){
-            options = options + "";
+
+        if(tcp.isChecked()){
+            options+=" tcp";
+            countChecks++;
         }
-        else if(a.equals("TCP")){
-            options+="tcp";
+        if(udp.isChecked()){
+            if(countChecks>0)
+                options+=" or udp";
+            else {
+                options += " udp";
+            }
+            countChecks++;
         }
-        else if(a.equals("UDP")){
-            options+="udp";
+        if(icmp.isChecked()){
+
+            if(countChecks>0)
+                options+=" or icmp";
+            else {
+                options+=" icmp";
+            }
+            countChecks++;
         }
 
         EditText ed =  findViewById(R.id.host_text);

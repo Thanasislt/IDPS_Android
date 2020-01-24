@@ -23,6 +23,9 @@
         android:testOnly="true"
         android:theme="@style/AppTheme" >
         <activity
+            android:name="securityteam.ece.uowm.SettingsActivity"
+            android:label="@string/title_activity_settings" />
+        <activity
             android:name="securityteam.ece.uowm.SelectMethod"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden" >
             <intent-filter>
@@ -31,8 +34,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="securityteam.ece.uowm.MainActivity" >
-        </activity>
+        <activity android:name="securityteam.ece.uowm.MainActivity" />
 
         <service
             android:name="securityteam.ece.uowm.LocalVPNService"

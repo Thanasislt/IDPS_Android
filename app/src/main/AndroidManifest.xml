@@ -14,14 +14,15 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".SelectMethod"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"></activity>
 
         <service
             android:name=".LocalVPNService"

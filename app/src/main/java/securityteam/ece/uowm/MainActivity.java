@@ -1,8 +1,6 @@
 package securityteam.ece.uowm;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,15 +9,23 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
     WeakReference<Activity> activityreference ;
@@ -29,38 +35,137 @@ public class MainActivity extends AppCompatActivity {
     Capture_Root captureroot;
     tcpdumpExecutor exec = new tcpdumpExecutor();
     Capture_Root capture_root;
+    PieChart pieChart ;
+    final Object lock = new Object();
+    volatile  List<PieEntry> entries = new ArrayList<>();
+    AsyncTask a;
+//    ReadWriteLock lock = new ReadWriteLock();
+
+
+
+    private class test extends AsyncTask<Object,Object,Object>{
+        float calculatePercentage ( int count, int total){
+            if (total == 0) return 0.0f;
+            return (((float) count / total) * 100.0f);
+        }
+
+        @Override
+        protected Object doInBackground (Object[]objects){
+            boolean f;
+            while (true) {
+                if (Thread.currentThread().isInterrupted()) break;
+                if (this.isCancelled()) break;
+                try {
+                    Thread.sleep(20);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+
+                for (int i = 0; i < exec.protocolCount.length; i++) {
+                    if (exec.protocolCount[i] > 0 && exec.getPacketCount() > 0) {
+                        PieEntry tmp = new PieEntry(calculatePercentage(exec.protocolCount[i], exec.getPacketCount()), exec.protocolNames[i]);
+//                        Log.d("NEWENTRY", "CREATED ENTRY " + tmp.getLabel() + "PERCENTAGE " + tmp.getValue() + " TOTAL PACKETS " + exec.getPacketCount());
+                        f = false;
+
+                        synchronized (lock) {
+                            for (PieEntry entry : entries) {
+                                if (entry.getLabel().equals(tmp.getLabel())) {
+                                    entries.set(entries.indexOf(entry), tmp);
+                                    f = true;
+                                }
+                            }
+                            if (!f) entries.add(tmp);
+                        }
+                    }
+
+                }
+
+
+                publishProgress(exec.getPacketCount());
+
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate (Object[]values){
+            super.onProgressUpdate(values);
+            captureCount.setText(String.valueOf((int) values[0]));
+
+            PieChart pieChart = findViewById(R.id.pieChart);
+            PieDataSet pieDataSet;
+//                lock.readLock().lock();
+
+            synchronized (lock) {
+                pieDataSet = new PieDataSet(entries, "");
+                PieData data = new PieData(pieDataSet);
+                pieChart.setData(data);
+
+
+                pieDataSet.setSliceSpace(0);
+                pieDataSet.setColors(ContextCompat.getColor(activityreference.get().getApplicationContext(), R.color.dark_blue),
+                        ContextCompat.getColor(activityreference.get().getApplicationContext(), R.color.dark_green),
+                        ContextCompat.getColor(activityreference.get().getApplicationContext(), R.color.dark_orange),
+                        ContextCompat.getColor(activityreference.get().getApplicationContext(), R.color.dark_red));
+                pieChart.setCenterText("Captured Packets");
+                pieChart.setDrawHoleEnabled(true);
+                pieChart.setHoleRadius(50);
+                pieChart.setUsePercentValues(true);
+                Legend legend = pieChart.getLegend();
+                legend.setEnabled(false);
+//        legend.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
+                pieChart.getDescription().setEnabled(false);
+
+                pieChart.setTransparentCircleRadius(0);
+                pieChart.notifyDataSetChanged();
+                pieChart.invalidate(); // refresh
+            }
+        }
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         activityreference = new WeakReference<Activity>(this);
-
-
         capture_root = new Capture_Root(activityreference);
         captureroot = capture_root;
         start_button = findViewById(R.id.start_tcpdump);
         stop_button = findViewById(R.id.stop_tcpdump);
-        captureCount = ((TextView)findViewById(R.id.textView));
-        @SuppressLint("StaticFieldLeak") final AsyncTask a = new AsyncTask() {
-            @Override
-            protected Object doInBackground(Object[] objects) {
-                while (true){
-                    publishProgress(exec.getPacketCount());
-                    try {
-                        Thread.sleep(1);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
+        captureCount = ((TextView) findViewById(R.id.textView));
+        pieChart = findViewById(R.id.pieChart);
 
-            @Override
-            protected void onProgressUpdate(Object[] values) {
-                super.onProgressUpdate(values);
-                captureCount.setText(String.valueOf(values[0]));
-            }
-        };
+
+        final PieChart pieChart = findViewById(R.id.pieChart);
+        PieDataSet pieDataSet;
+        synchronized (lock) {
+            pieDataSet = new PieDataSet(entries, "");
+            PieData data = new PieData(pieDataSet);
+            pieChart.setData(data);
+        }
+
+        pieDataSet.setSliceSpace(5);
+        pieDataSet.setColors(new int[]{R.color.green, R.color.orange, R.color.red, R.color.blue}, this);
+        pieChart.setCenterText("Captured Packets");
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setHoleRadius(50);
+
+        Legend legend = pieChart.getLegend();
+        legend.setEnabled(false);
+//        legend.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
+        pieChart.getDescription().setEnabled(false);
+
+        pieChart.setTransparentCircleRadius(0);
+
+        pieChart.notifyDataSetChanged();
+        pieChart.invalidate();
+        pieChart.invalidate(); // refresh
+
+
+
 
         CheckBox all=findViewById(R.id.checkBoxAll);
 
@@ -99,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        a.execute();
+
 
 
         start_button.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
                             Log.e("SUCHECK","SUCCESS. Executing: " + capture_root.getCaptureCommand());
                             exec.executeCommand(capture_root.getCaptureCommand());
 
+
                         } catch (IOException e) {
                             Log.e("SUCHECK","FAIL");
                             e.printStackTrace();
@@ -135,6 +241,7 @@ public class MainActivity extends AppCompatActivity {
                 });
                 t.start();
 
+                a = new test().execute();
             }
         });
         stop_button.setOnClickListener(new View.OnClickListener() {
@@ -143,6 +250,8 @@ public class MainActivity extends AppCompatActivity {
                 stop_button.setEnabled(false);
                 start_button.setEnabled(true);
                 exec.stopRunningExecution();
+                a.cancel(true);
+
 
             }
         });

@@ -21,19 +21,16 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
-        <activity
-            android:name="securityteam.ece.uowm.SettingsActivity"
-            android:label="@string/title_activity_settings" />
-        <activity
-            android:name="securityteam.ece.uowm.SelectMethod"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden" >
+        <activity android:name="securityteam.ece.uowm.SelectMethod" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="securityteam.ece.uowm.MainActivity" />
+        <activity
+            android:name="securityteam.ece.uowm.MainActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden" />
 
         <service
             android:name="securityteam.ece.uowm.LocalVPNService"

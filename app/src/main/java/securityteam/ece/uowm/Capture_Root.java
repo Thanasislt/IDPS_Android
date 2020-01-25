@@ -10,7 +10,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
-import java.util.Objects;
 
 public class Capture_Root {
     String captureLocation;
@@ -42,7 +41,7 @@ public class Capture_Root {
             }
             tcpdump = file;
 
-            this.captureCommand = "su -c " + file.getAbsolutePath() + " -U -i any  -w - | tee "+ captureLocation+ "/capture.pcap |" + file.getAbsolutePath()+" -r -";
+            this.captureCommand = "su -c " + file.getAbsolutePath() + " -U -i any  -w - | tee "+ captureLocation+ "/capture.pcap |" + file.getAbsolutePath()+" -tvvvnn -r - ";
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -52,7 +51,7 @@ public class Capture_Root {
     public void updateCaptureCommand(String a){
 
 
-        this.captureCommand = "su -c " + tcpdump.getAbsolutePath() + " -U -i any " + a + " -w - | tee "+ captureLocation+ "/capture.pcap |" + tcpdump.getAbsolutePath()+" -r -";
+        this.captureCommand = "su -c " + tcpdump.getAbsolutePath() + " -U -i any " + a + " -w - | tee "+ captureLocation+ "/capture.pcap |" + tcpdump.getAbsolutePath()+" -tvvvnn -r -";
     }
 
     public String getCaptureCommand() {

@@ -21,6 +21,22 @@ public class tcpdumpExecutor {
     int captureCount =0;
     OutputReader outputReader = new OutputReader();
     ErrorReader errorReader = new ErrorReader();
+    String[] protocolNames= {
+            "HOPOPT","ICMP","IGMP","GGP","IPv4","ST","TCP","CBT","EGP","IGP","BBN-RCC-MON","NVP-II","PUP","ARGUS","EMCON","XNET",
+            "CHAOS","UDP","MUX","DCN-MEAS","HMP","PRM","XNS-IDP","TRUNK-1","TRUNK-2","LEAF-1","LEAF-2","RDP","IRTP","ISO-TP4","NETBLT","MFE-NSP","MERIT-INP","DCCP","3PC","IDPR","XTP","DDP","IDPR-CMTP","TP++","IL","IPv6","SDRP","IPv6-Route","IPv6-Frag","IDRP","RSVP","GRE","DSR","BNA","ESP","AH"
+            ,"I-NLSP","SWIPE","NARP","MOBILE","TLSP","SKIP","IPv6-ICMP","IPv6-NoNxt","IPv6-Opts","any host internal protocol","CFTP","any local network","SAT-EXPAK","KRYPTOLAN","RVD","IPPC","SAT-MON","VISA","IPCV","CPNX","CPHB","WSN","PVP","BR-SAT-MON","SUN-ND","WB-MON","WB-EXPAK","ISO-IP","VMTP","SECURE-VMTP","VINES","TTP","IPTM","NSFNET-IGP","DGP","TCF","EIGRP","OSPFIGP","Sprite-RPC"
+            ,"LARP","MTP","AX.25","IPIP","MICP","SCC-SP","","","","","","","","","","","","","","","","","","","","","","","",""
+            ,"","","","","","","","","","","","","","","","","","","","","","","","","","","",""
+            ,"","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""
+
+
+
+    };
+    int[] protocolCount = new int[255];
+
+
+
+
     private class InputWriter extends Thread {
         private String input;
 
@@ -58,8 +74,16 @@ public class tcpdumpExecutor {
                 String buff;
                 while ((buff = isr.readLine()) != null) {
 //                    readBuffer.append(buff);
-                    Log.d("Executor",buff);
+//                    Log.d("Executor",buff);
+                    if (buff.contains("proto")){
+                        int index = buff.indexOf("proto");
+                        String Protocol_dirty =  buff.substring(index+"proto".length()+1).split(" ")[1];
+                        String Protocol = Protocol_dirty.substring(1,Protocol_dirty.indexOf(")"));
+                        protocolCount[Integer.valueOf(Protocol)]++;
+                    }
+                    Log.d("TCPDUMP",buff);
                     captureCount++;
+
                 }
                 output = readBuffer.toString();
                 outputSem.release();
@@ -71,6 +95,10 @@ public class tcpdumpExecutor {
             }
         }
     }
+
+
+
+
 
     private class ErrorReader extends Thread {
         public ErrorReader() {
@@ -87,10 +115,13 @@ public class tcpdumpExecutor {
                 StringBuffer readBuffer = new StringBuffer();
                 BufferedReader isr = new BufferedReader(new InputStreamReader(tcpdumpProcess
                         .getErrorStream()));
-                String buff = new String();
+                String buff;
                 while ((buff = isr.readLine()) != null) {
                     readBuffer.append(buff);
                     Log.d("TCPDUMP_ERROR",buff);
+
+
+
                 }
                 error = readBuffer.toString();
                 errorSem.release();
@@ -131,6 +162,7 @@ public class tcpdumpExecutor {
         outputReader = new OutputReader();
         errorReader = new ErrorReader();
         captureCount =0;
+        protocolCount = new int[255];
          captureThread = new Thread(new Runnable() {
             @Override
             public void run() {

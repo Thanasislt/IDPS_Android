@@ -41,7 +41,7 @@ public class Capture_Root {
             }
             tcpdump = file;
 
-            this.captureCommand = "su -c " + file.getAbsolutePath() + " -U -i any  -w - | tee "+ captureLocation+ "/capture.pcap |" + file.getAbsolutePath()+" -tvvvnn -r - ";
+            this.captureCommand = "su -c " + file.getAbsolutePath() + "  -i any -Ul --immediate-mode -w - | tee "+ captureLocation+ "/capture.pcap |" + file.getAbsolutePath()+" -Utvvvnnl --immediate-mode -r - | grep 'proto'";
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -51,7 +51,7 @@ public class Capture_Root {
     public void updateCaptureCommand(String a){
 
 
-        this.captureCommand = "su -c " + tcpdump.getAbsolutePath() + " -U -i any " + a + " -w - | tee "+ captureLocation+ "/capture.pcap |" + tcpdump.getAbsolutePath()+" -tvvvnn -r -";
+        this.captureCommand = "su -c " + tcpdump.getAbsolutePath() + "  -i any " + a + " -Ul --immediate-mode -w - | tee "+ captureLocation+ "/capture.pcap |" + tcpdump.getAbsolutePath()+" -Utvvvnnl --immediate-mode -r - | grep 'proto'";
     }
 
     public String getCaptureCommand() {

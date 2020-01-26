@@ -20,6 +20,7 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.google.common.primitives.Ints;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     PieChart pieChart ;
     final Object lock = new Object();
     volatile  List<PieEntry> entries = new ArrayList<>();
+    List<Integer> colors = new ArrayList<>();
     AsyncTask a;
 //    ReadWriteLock lock = new ReadWriteLock();
 
@@ -48,23 +50,44 @@ public class MainActivity extends AppCompatActivity {
             if (total == 0) return 0.0f;
             return (((float) count / total) * 100.0f);
         }
+        String initMsg = "Waiting for the first few packets";
+        PieDataSet pieDataSet;
+
+        PieChart pieChart = activityreference.get().findViewById(R.id.pieChart);
+        test(){
+            pieChart.setCenterTextSize(20);
+            pieChart.setDrawHoleEnabled(true);
+            pieChart.setHoleRadius(40);
+            pieChart.setDrawEntryLabels(false);
+            pieChart.setEntryLabelTextSize(16f);
+            pieChart.setTouchEnabled(true);
+
+            pieChart.setUsePercentValues(false);
+            pieChart.setTransparentCircleRadius(50);
+
+
+            Legend legend = pieChart.getLegend();
+            legend.setTextSize(18);
+            legend.setEnabled(true);
+            legend.setWordWrapEnabled(true);
+            legend.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
+        }
 
         @Override
         protected Object doInBackground (Object[]objects){
             boolean f;
+
             while (true) {
                 if (Thread.currentThread().isInterrupted()) break;
                 if (this.isCancelled()) break;
-                try {
-                    Thread.sleep(20);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
 
 
+                PieEntry tmp;
                 for (int i = 0; i < exec.protocolCount.length; i++) {
                     if (exec.protocolCount[i] > 0 && exec.getPacketCount() > 0) {
-                        PieEntry tmp = new PieEntry(calculatePercentage(exec.protocolCount[i], exec.getPacketCount()), exec.protocolNames[i]);
+//                        PieEntry tmp = new PieEntry(calculatePercentage(exec.protocolCount[i], exec.getPacketCount()), exec.protocolNames[i]);
+                        tmp = new PieEntry(exec.protocolCount[i], exec.protocolNames[i]);
+
 //                        Log.d("NEWENTRY", "CREATED ENTRY " + tmp.getLabel() + "PERCENTAGE " + tmp.getValue() + " TOTAL PACKETS " + exec.getPacketCount());
                         f = false;
 
@@ -82,8 +105,13 @@ public class MainActivity extends AppCompatActivity {
                 }
 
 
-                publishProgress(exec.getPacketCount());
+                publishProgress();
+                try {
+                    Thread.sleep(500);
 
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
             return null;
         }
@@ -91,37 +119,42 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onProgressUpdate (Object[]values){
             super.onProgressUpdate(values);
-            captureCount.setText(String.valueOf((int) values[0]));
+//            captureCount.setText(String.valueOf(exec.getPacketCount()));
 
-            PieChart pieChart = findViewById(R.id.pieChart);
-            PieDataSet pieDataSet;
-//                lock.readLock().lock();
+            if (Thread.currentThread().isInterrupted()) return;
+            if (this.isCancelled()) return;
 
-            synchronized (lock) {
+
                 pieDataSet = new PieDataSet(entries, "");
+
+                pieDataSet.setDrawValues(false);
+//                pieDataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+                pieDataSet.setSliceSpace(2);
+//                int[] arr = colors.stream().mapToInt(i -> i).toArray();
+                pieDataSet.setColors(Ints.toArray(colors));
+
                 PieData data = new PieData(pieDataSet);
                 pieChart.setData(data);
 
 
-                pieDataSet.setSliceSpace(0);
-                pieDataSet.setColors(ContextCompat.getColor(activityreference.get().getApplicationContext(), R.color.dark_blue),
-                        ContextCompat.getColor(activityreference.get().getApplicationContext(), R.color.dark_green),
-                        ContextCompat.getColor(activityreference.get().getApplicationContext(), R.color.dark_orange),
-                        ContextCompat.getColor(activityreference.get().getApplicationContext(), R.color.dark_red));
-                pieChart.setCenterText("Captured Packets");
-                pieChart.setDrawHoleEnabled(true);
-                pieChart.setHoleRadius(50);
-                pieChart.setUsePercentValues(true);
-                Legend legend = pieChart.getLegend();
-                legend.setEnabled(false);
-//        legend.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
-                pieChart.getDescription().setEnabled(false);
 
-                pieChart.setTransparentCircleRadius(0);
+                if (exec.captureCount == 0){
+                    pieChart.setCenterTextSize(16);
+                    if (pieChart.getCenterText().toString().equals(initMsg))pieChart.setCenterText(initMsg+System.getProperty("line.separator")+".");
+                    else if (pieChart.getCenterText().toString().equals(initMsg+System.getProperty("line.separator")+"."))pieChart.setCenterText(initMsg+System.getProperty("line.separator")+"..");
+                    else if (pieChart.getCenterText().toString().equals(initMsg+System.getProperty("line.separator")+".."))pieChart.setCenterText(initMsg+System.getProperty("line.separator")+"...");
+                    else pieChart.setCenterText(initMsg+System.getProperty("line.separator")+".");
+                }
+                else {
+                    pieChart.setCenterTextSize(20);
+                    pieChart.setCenterText("Packets:"+System.getProperty("line.separator")+exec.getPacketCount());
+                }
+
+                pieChart.getDescription().setEnabled(false);
                 pieChart.notifyDataSetChanged();
                 pieChart.invalidate(); // refresh
             }
-        }
+//        }
     }
 
 
@@ -135,37 +168,52 @@ public class MainActivity extends AppCompatActivity {
         captureroot = capture_root;
         start_button = findViewById(R.id.start_tcpdump);
         stop_button = findViewById(R.id.stop_tcpdump);
-        captureCount = ((TextView) findViewById(R.id.textView));
+//        captureCount = ((TextView) findViewById(R.id.textView));
         pieChart = findViewById(R.id.pieChart);
+        pieChart.setVisibility(View.GONE);
 
 
-        final PieChart pieChart = findViewById(R.id.pieChart);
-        PieDataSet pieDataSet;
-        synchronized (lock) {
-            pieDataSet = new PieDataSet(entries, "");
-            PieData data = new PieData(pieDataSet);
-            pieChart.setData(data);
-        }
 
-        pieDataSet.setSliceSpace(5);
-        pieDataSet.setColors(new int[]{R.color.green, R.color.orange, R.color.red, R.color.blue}, this);
-        pieChart.setCenterText("Captured Packets");
-        pieChart.setDrawHoleEnabled(true);
-        pieChart.setHoleRadius(50);
 
-        Legend legend = pieChart.getLegend();
-        legend.setEnabled(false);
+        colors.add(ContextCompat.getColor(this, R.color.crimson));
+        colors.add(ContextCompat.getColor(this, R.color.orange));
+        colors.add(ContextCompat.getColor(this, R.color.sea_green));
+        colors.add(ContextCompat.getColor(this, R.color.royal_blue));
+        colors.add(ContextCompat.getColor(this, R.color.slate_blue));
+//        final PieChart pieChart = findViewById(R.id.pieChart);
+//        PieDataSet pieDataSet;
+//        List<PieEntry> dummy = new ArrayList<>();
+//        dummy.add(new PieEntry(1,""));
+//        pieDataSet = new PieDataSet(dummy, "");
+//        PieData data = new PieData(pieDataSet);
+//
+//
+//
+//        pieDataSet.setSliceSpace(5);
+//        pieChart.getDescription().setEnabled(false);
+//        pieDataSet.setColors(new int[]{ R.color.light_blue}, this);
+//        pieChart.setCenterTextSize(20);
+//        pieChart.setDrawHoleEnabled(true);
+//        pieChart.setHoleRadius(40);
+//        pieChart.setDrawEntryLabels(false);
+//        pieChart.setEntryLabelTextSize(16f);
+//        pieChart.setTouchEnabled(true);
+//        pieDataSet.setDrawValues(false);
+//        pieChart.setUsePercentValues(false);
+//        pieChart.setTransparentCircleRadius(50);
+//        pieChart.
+//
+//        Legend legend = pieChart.getLegend();
+//        legend.setTextSize(18);
+//        legend.setEnabled(false);
 //        legend.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
-        pieChart.getDescription().setEnabled(false);
-
-        pieChart.setTransparentCircleRadius(0);
-
-        pieChart.notifyDataSetChanged();
-        pieChart.invalidate();
-        pieChart.invalidate(); // refresh
-
-
-
+//        pieChart.setData(data);
+//        pieChart.notifyDataSetChanged();
+//        pieChart.invalidate();
+//        pieChart.invalidate(); // refresh
+//
+//
+//
 
         CheckBox all=findViewById(R.id.checkBoxAll);
 
@@ -214,16 +262,31 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         try {
+                            exec.protocolCount = new int[255];
+                            entries.clear();
+                            PieDataSet pieDataSet = new PieDataSet(entries, "");
+                            pieDataSet.setDrawValues(false);
+                            pieDataSet.setSliceSpace(2);
+                            pieDataSet.setColors(colors);
+                            PieData data = new PieData(pieDataSet);
+                            pieChart.getDescription().setEnabled(false);
+
+                            pieChart.setData(data);
+//                pieChart.clear();
+                            pieChart.notifyDataSetChanged();
+                            pieChart.invalidate();
                             Runtime.getRuntime().exec("su");
                             activityreference.get().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     start_button.setEnabled(false);
                                     stop_button.setEnabled(true);
+                                    pieChart.setVisibility(View.VISIBLE);
                                 }
                             });
                             UpdateSettings();
                             Log.e("SUCHECK","SUCCESS. Executing: " + capture_root.getCaptureCommand());
+
                             exec.executeCommand(capture_root.getCaptureCommand());
 
 
@@ -251,6 +314,12 @@ public class MainActivity extends AppCompatActivity {
                 start_button.setEnabled(true);
                 exec.stopRunningExecution();
                 a.cancel(true);
+                pieChart.setCenterText("Ready to capture.");
+//                pieChart.setVisibility(View.GONE);
+                exec.captureCount =0;
+                pieChart.invalidate();
+
+
 
 
             }

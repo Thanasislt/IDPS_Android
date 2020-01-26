@@ -71,17 +71,19 @@ public class tcpdumpExecutor {
             try {
                 StringBuilder readBuffer = new StringBuilder();
                 BufferedReader isr = new BufferedReader(new InputStreamReader(tcpdumpProcess.getInputStream()));
+
                 String buff;
+                int index;
                 while ((buff = isr.readLine()) != null) {
 //                    readBuffer.append(buff);
 //                    Log.d("Executor",buff);
-                    if (buff.contains("proto")){
-                        int index = buff.indexOf("proto");
+//                    if (buff.contains("proto")){
+                         index = buff.indexOf("proto");
                         String Protocol_dirty =  buff.substring(index+"proto".length()+1).split(" ")[1];
                         String Protocol = Protocol_dirty.substring(1,Protocol_dirty.indexOf(")"));
                         protocolCount[Integer.valueOf(Protocol)]++;
-                    }
-                    Log.d("TCPDUMP",buff);
+//                    }
+//                    Log.d("TCPDUMP",buff);
                     captureCount++;
 
                 }

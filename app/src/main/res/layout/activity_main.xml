@@ -212,7 +212,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <CheckBox
-                        android:id="@+id/checkBox2"
+                        android:id="@+id/checkBoxIgmp"
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -245,7 +245,7 @@
                         android:enabled="false"
                         android:inputType="number"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/checkBox2"
+                        app:layout_constraintEnd_toEndOf="@+id/checkBoxIgmp"
                         app:layout_constraintStart_toStartOf="@+id/checkBoxIcmp"
                         app:layout_constraintTop_toBottomOf="@+id/checkBoxIcmp" />
 

@@ -220,10 +220,11 @@ public class MainActivity extends AppCompatActivity {
         all.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                CheckBox all,tcp,udp,icmp;
+                CheckBox tcp,udp,icmp,igmp;
                 tcp=findViewById((R.id.checkBoxTcp));
                 udp=findViewById((R.id.checkBoxUdp));
                 icmp=findViewById((R.id.checkBoxIcmp));
+                igmp=findViewById((R.id.checkBoxIgmp));
 
                 if(b==true){
                     tcp.setChecked(false);
@@ -234,6 +235,10 @@ public class MainActivity extends AppCompatActivity {
 
                     icmp.setChecked(false);
                     icmp.setEnabled(false);
+
+
+                    igmp.setEnabled(false);
+                    igmp.setChecked(false);
                 }
                 else{
 
@@ -244,6 +249,8 @@ public class MainActivity extends AppCompatActivity {
 
 
                     icmp.setEnabled(true);
+
+                    igmp.setEnabled(true);
                 }
 
 
@@ -328,11 +335,11 @@ public class MainActivity extends AppCompatActivity {
 
     void UpdateSettings(){
 
-        CheckBox all,tcp,udp,icmp;
-        all=findViewById(R.id.checkBoxAll);
+        CheckBox tcp,udp,icmp,igmp;
         tcp=findViewById((R.id.checkBoxTcp));
         udp=findViewById((R.id.checkBoxUdp));
         icmp=findViewById((R.id.checkBoxIcmp));
+        igmp=findViewById((R.id.checkBoxIgmp));
 
         int countChecks=0;
 
@@ -359,6 +366,14 @@ public class MainActivity extends AppCompatActivity {
                 options+=" icmp";
             }
             countChecks++;
+        }
+        if(igmp.isChecked()){
+            if(countChecks>0){
+                options+=" or igmp";
+            }
+            else
+                options+=" igmp";
+            //countChecks++;
         }
 
         EditText ed =  findViewById(R.id.host_text);

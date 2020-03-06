@@ -16,4 +16,9 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+    <string name="landing_welcome">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dapibus aliquam urna, id lacinia sapien fringilla ac. Duis faucibus ex porta enim tempus, eget gravida purus interdum. </string>
+    <string name="capture_method_descriptions">
+        There are two ways to capture the packets. If you have a rooted device, its possible to directly capture the network traffic from your device. Otherwise, use the LocalVPN method. </string>
+
 </resources>

@@ -10,6 +10,7 @@ MERGED from [androidx.appcompat:appcompat:1.1.0] C:\Users\DeRed\.gradle\caches\t
 MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] C:\Users\DeRed\.gradle\caches\transforms-2\files-2.1\75fe1a0d0ea641341446dfd6b8974e96\constraintlayout-1.1.3\AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\DeRed\.gradle\caches\transforms-2\files-2.1\7d7fd0d2929b90b96150578fa61b2794\cardview-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [com.github.PhilJay:MPAndroidChart:v3.1.0-alpha] C:\Users\DeRed\.gradle\caches\transforms-2\files-2.1\ddcf337705bd4fdd108a1fd426f6a217\jetified-MPAndroidChart-v3.1.0-alpha\AndroidManifest.xml:2:1-20:12
+MERGED from [com.mikhaellopez:circularimageview:4.2.0] C:\Users\DeRed\.gradle\caches\transforms-2\files-2.1\f30f8c2a452d9ce5b7934749d932197c\jetified-circularimageview-4.2.0\AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\DeRed\.gradle\caches\transforms-2\files-2.1\1ebdab2cccca905a3cd28bb608703327\coordinatorlayout-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.transition:transition:1.2.0] C:\Users\DeRed\.gradle\caches\transforms-2\files-2.1\82145ca6b286991b875747484a22969a\transition-1.2.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.appcompat:appcompat-resources:1.1.0] C:\Users\DeRed\.gradle\caches\transforms-2\files-2.1\850a3c84da944cc872764513edcd7120\jetified-appcompat-resources-1.1.0\AndroidManifest.xml:17:1-24:12
@@ -130,6 +131,8 @@ MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\DeRed\.gradle\caches\tra
 MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\DeRed\.gradle\caches\transforms-2\files-2.1\7d7fd0d2929b90b96150578fa61b2794\cardview-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [com.github.PhilJay:MPAndroidChart:v3.1.0-alpha] C:\Users\DeRed\.gradle\caches\transforms-2\files-2.1\ddcf337705bd4fdd108a1fd426f6a217\jetified-MPAndroidChart-v3.1.0-alpha\AndroidManifest.xml:16:5-18:41
 MERGED from [com.github.PhilJay:MPAndroidChart:v3.1.0-alpha] C:\Users\DeRed\.gradle\caches\transforms-2\files-2.1\ddcf337705bd4fdd108a1fd426f6a217\jetified-MPAndroidChart-v3.1.0-alpha\AndroidManifest.xml:16:5-18:41
+MERGED from [com.mikhaellopez:circularimageview:4.2.0] C:\Users\DeRed\.gradle\caches\transforms-2\files-2.1\f30f8c2a452d9ce5b7934749d932197c\jetified-circularimageview-4.2.0\AndroidManifest.xml:7:5-9:41
+MERGED from [com.mikhaellopez:circularimageview:4.2.0] C:\Users\DeRed\.gradle\caches\transforms-2\files-2.1\f30f8c2a452d9ce5b7934749d932197c\jetified-circularimageview-4.2.0\AndroidManifest.xml:7:5-9:41
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\DeRed\.gradle\caches\transforms-2\files-2.1\1ebdab2cccca905a3cd28bb608703327\coordinatorlayout-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\DeRed\.gradle\caches\transforms-2\files-2.1\1ebdab2cccca905a3cd28bb608703327\coordinatorlayout-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.transition:transition:1.2.0] C:\Users\DeRed\.gradle\caches\transforms-2\files-2.1\82145ca6b286991b875747484a22969a\transition-1.2.0\AndroidManifest.xml:20:5-22:41

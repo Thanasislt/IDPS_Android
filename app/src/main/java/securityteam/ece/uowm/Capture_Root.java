@@ -1,15 +1,9 @@
 package securityteam.ece.uowm;
 
 import android.app.Activity;
-import android.content.Context;
-import android.os.Environment;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.lang.ref.WeakReference;
 
 public class Capture_Root {
@@ -23,7 +17,8 @@ public class Capture_Root {
         tcpdump = new binaryHelper().getBinaryFile(activityReference);
         try{
             if (tcpdump!=null) {
-                captureLocation = Environment.getExternalStorageDirectory().getAbsolutePath();
+//                captureLocation = Environment.getExternalStorageDirectory().getAbsolutePath();
+                captureLocation = activityReference.get().getExternalFilesDir(null).getAbsolutePath();
                 this.captureCommand =
                         "su -c " + tcpdump.getAbsolutePath() + "  -i any -Ul --immediate-mode -w - | tee " + captureLocation + "/capture.pcap |" + tcpdump.getAbsolutePath() + " -Utvvvnnl --immediate-mode -r - | grep 'proto'";
             }

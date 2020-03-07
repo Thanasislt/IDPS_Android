@@ -19,14 +19,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="20dp">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="190dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_margin="16dp"
+                android:adjustViewBounds="true"
+                android:clickable="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/securitylogo"
+                app:backgroundTint="@color/white"
+                app:fabCustomSize="190dp"
+                app:fabSize="normal"
+                app:maxImageSize="130dp"
+                app:useCompatPadding="false" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="12dp"
+                android:animateLayoutChanges="true"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:focusable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:visibility="visible"
                 app:cardCornerRadius="2dp"
@@ -38,21 +60,13 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="match_parent"
-                        android:layout_height="135dp"
-                        android:layout_gravity="center_horizontal"
-                        android:padding="10dp"
-                        app:srcCompat="@drawable/securitylogo" />
-
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="8dp"
                         android:text="Welcome"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -61,7 +75,7 @@
                         android:padding="8dp"
                         android:text="There are two ways to capture network traffic.\n\nIf your device is rooted, the capture will be done using tcpdump and be saved as a pcap file.\n\nOtherwise, a VPN will be created locally and route the traffic through it.\n\nNote that the VPN is purely local so your data is safe."
                         android:textColor="@color/colorPrimaryTextAccent"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/textView5"
@@ -70,7 +84,7 @@
                         android:padding="8dp"
                         android:text="Capture Method"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <LinearLayout

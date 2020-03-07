@@ -9,21 +9,16 @@ import android.transition.Fade;
 import android.transition.Transition;
 import android.transition.TransitionManager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import java.io.IOException;
 import java.lang.ref.WeakReference;
-
-import static java.lang.Thread.sleep;
 
 public class SelectMethod extends AppCompatActivity {
     private Button button_root;
@@ -39,7 +34,6 @@ public class SelectMethod extends AppCompatActivity {
         setContentView(R.layout.select_method);
         activityWeakReference = new WeakReference<Activity>(this);
         linearLayout = (LinearLayout) findViewById(R.id.LandingScrollLinear);
-//        mFade =
 
 
         findViewById(R.id.button_root).setOnClickListener(new View.OnClickListener() {

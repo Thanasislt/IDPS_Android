@@ -1,28 +1,19 @@
 package securityteam.ece.uowm;
 
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.google.common.primitives.Ints;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -32,29 +23,93 @@ import java.util.List;
 import java.util.Set;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
     WeakReference<Activity> activityreference;
-//    Button start_button;
-//    Button stop_button;
-//    TextView captureCount;
-//    Capture_Root captureroot;
-//    tcpdumpExecutor exec = new tcpdumpExecutor();
-//    Capture_Root capture_root;
-//    PieChart pieChart;
-//    final Object lock = new Object();
-//    volatile List<PieEntry> entries = new ArrayList<>();
-//    List<Integer> colors = new ArrayList<>();
-//    private final List<CheckableSpinnerAdapter.SpinnerItem<String>> spinner_items = new ArrayList<>();
-//    private final Set<String> selected_items = new HashSet<>();
-//    AsyncTask a;
+    Button start_button;
+    Button stop_button;
+    TextView captureCount;
+    Capture_Root captureroot;
+    tcpdumpExecutor exec = new tcpdumpExecutor();
+    Capture_Root capture_root;
+    PieChart pieChart;
+    final Object lock = new Object();
+    volatile List<PieEntry> entries = new ArrayList<>();
+    List<Integer> colors = new ArrayList<>();
+    private final List<CheckableSpinnerAdapter.SpinnerItem<String>> spinner_items = new ArrayList<>();
+    private final Set<String> selected_Interfaces = new HashSet<>();
+    private final Set<String> all_Interfaces = new HashSet<>();
+
+
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        String headerText = "Interfaces";
+        final Spinner spinner = findViewById(R.id.my_spinner);
+        String[] all_objects = null;
+        try {
+            String[] interfaces = getNetworkInterfaces();
+            for (String interfaceLine : interfaces){
+                String[] interfaceFields = interfaceLine.split(" ");
+                String interfaceName = interfaceFields[0];
+                all_Interfaces.add(interfaceName);
+                Log.d("INTERFACES","Interfaces: " + interfaceName);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for(String interface_Name : all_Interfaces) {
+            spinner_items.add(new CheckableSpinnerAdapter.SpinnerItem<>(interface_Name, interface_Name));
+        }
+        selected_Interfaces.addAll(all_Interfaces);
+        // to start with any pre-selected, add them to the `selected_items` set
+
+        CheckBox checkBoxAll = findViewById(R.id.checkBoxInterfaceAny);
+        checkBoxAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    selected_Interfaces.addAll(all_Interfaces) ;
+                }
+                else {
+                    selected_Interfaces.clear();
+                }
+            }
+        });
+
+
+
+        CheckableSpinnerAdapter.AdapterCallback callback = new CheckableSpinnerAdapter.AdapterCallback() {
+            @Override
+            public void getSelectedItems(Set selected_items) {
+                Log.d("CheckedInterfaces",""+selected_items.size());
+                if(selected_items.size()!=0){
+                    ((CheckBox)findViewById(R.id.checkBoxInterfaceAny)).setChecked(false);
+                }
+                else ((CheckBox)findViewById(R.id.checkBoxInterfaceAny)).setChecked(true);
+            }
+        };
+        CheckableSpinnerAdapter adapter = new CheckableSpinnerAdapter<>(this, headerText, spinner_items, selected_Interfaces,callback);
+        spinner.setAdapter(adapter);
+
 
     }
+    public static String[] getNetworkInterfaces() throws java.io.IOException {
+        java.util.Scanner s = new java.util.Scanner(Runtime.getRuntime().exec("su -c ifconfig -S").getInputStream()).useDelimiter("\\A");
+        String[] lines = (s.hasNext() ? s.next() : "").split("\n");
+        return lines;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
+
+
 }
 
 //    ReadWriteLock lock = new ReadWriteLock();
@@ -173,11 +228,8 @@ public class MainActivity extends AppCompatActivity {
 ////        }
 //    }
 //
-//    public static String execCmd(String cmd) throws java.io.IOException {
-//        java.util.Scanner s = new java.util.Scanner(Runtime.getRuntime().exec(cmd).getInputStream()).useDelimiter("\\A");
-//        return s.hasNext() ? s.next() : "";
-//    }
-//
+
+
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
@@ -191,35 +243,7 @@ public class MainActivity extends AppCompatActivity {
 ////        captureCount = ((TextView) findViewById(R.id.textView));
 //        pieChart = findViewById(R.id.pieChart);
 //        pieChart.setVisibility(View.GONE);
-//        try {
-//            String s = execCmd("su -c ifconfig -S");
-////            Log.d("INTERFACES","Interfaces: " + s);
-//            String[] lines = s.split("\n");
-//            for (String sub : lines){
-//                String substrings[] = sub.split(" ");
-//                all_objects.add(substrings[0]);
-//                Log.d("INTERFACES","Interfaces: " + substrings[0]);
-//            }
-//
-//
-//
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//        for(String o : all_objects) {
-//            spinner_items.add(new CheckableSpinnerAdapter.SpinnerItem<>(o, o));
-//        }
-//
-//        // to start with any pre-selected, add them to the `selected_items` set
-//
-//        String headerText = "Select Capture Interfaces";
-//
-//        Spinner spinner = findViewById(R.id.my_spinner);
-//        CheckableSpinnerAdapter adapter = new CheckableSpinnerAdapter<>(this, headerText, spinner_items, selected_items);
-//        spinner.setAdapter(adapter);
+
 //
 //        // when you want to see what the user has selected, look in the `selected_items`
 //        // set anywhere in your activity

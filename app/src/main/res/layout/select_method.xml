@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccentLight"
+    android:background="@color/colorPrimaryLight"
     android:orientation="vertical">
 
     <ScrollView
@@ -34,6 +34,7 @@
                 app:cardElevation="2dp">
 
                 <LinearLayout
+                    android:id="@+id/cardViewLinearLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
@@ -43,7 +44,7 @@
                         android:layout_height="wrap_content"
                         android:padding="8dp"
                         android:text="Welcome"
-                        android:textColor="@color/colorAccentDark"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -61,7 +62,7 @@
                         android:layout_height="wrap_content"
                         android:padding="8dp"
                         android:text="Capture Method"
-                        android:textColor="@color/colorAccentDark"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -72,7 +73,7 @@
                         android:padding="8dp">
 
                         <Button
-                            android:id="@+id/button"
+                            android:id="@+id/button_vpn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -80,12 +81,13 @@
                             android:text="Local VPN" />
 
                         <Button
-                            android:id="@+id/button2"
+                            android:id="@+id/button_root"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:backgroundTint="@color/antique_white"
                             android:text="Root" />
+
                     </LinearLayout>
 
                 </LinearLayout>

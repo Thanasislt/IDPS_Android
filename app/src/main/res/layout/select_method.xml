@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccentLight"
@@ -38,6 +37,14 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="135dp"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="10dp"
+                        app:srcCompat="@drawable/securitylogo" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -51,7 +58,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="8dp"
-                        android:text="There are two ways to capture network traffic. If your device is rooted, the capture will be done using tcpdump and be saved as a pcap file. Otherwise, a VPN will be created locally and route the traffic through it. Note that the VPN is purely local so your data is safe."
+                        android:text="There are two ways to capture network traffic.\n\nIf your device is rooted, the capture will be done using tcpdump and be saved as a pcap file.\n\nOtherwise, a VPN will be created locally and route the traffic through it.\n\nNote that the VPN is purely local so your data is safe."
                         android:textColor="@color/colorPrimaryTextAccent"
                         android:textSize="12sp" />
 

@@ -55,6 +55,7 @@ public class CaptureActivity extends AppCompatActivity  {
         activityreference = new WeakReference<Activity>(this);
         String[] all_objects = null;
         String[] pickerValues = new String[60];
+        new Capture_Root(activityreference);
         for (int i=0;i<60;i++){
             pickerValues[i] = ""+i;
         }
@@ -92,19 +93,12 @@ public class CaptureActivity extends AppCompatActivity  {
         for(String interface_Name : all_Interfaces) {
             spinner_items.add(new CheckableSpinnerAdapter.SpinnerItem<>(interface_Name, interface_Name));
         }
-        selected_Interfaces.addAll(all_Interfaces);
-        // to start with any pre-selected, add them to the `selected_items` set
-
         CheckBox checkBoxAll = findViewById(R.id.checkBoxInterfaceAny);
         checkBoxAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     selected_Interfaces.clear();
-                    selected_Interfaces.addAll(all_Interfaces) ;
-                }
-                else {
-//                    selected_Interfaces.clear();
                 }
             }
         });
@@ -140,21 +134,18 @@ public class CaptureActivity extends AppCompatActivity  {
                     Log.e("Start","Cannot Start: Capture duration is 0.");
                     return;
                 }
-                
+
                 Capture_Root.Capture(getApplicationContext(),"su -c "+ binaryHelper.getBinaryFile(activityreference)+" -Ul --immediate-mode " +"-i any"+" -w " +getExternalFilesDir(null).getAbsolutePath()+ "/capture.pcap",captureDuration[0]);
-//                v.setEnabled(false);
-//                findViewById(R.id.stop_tcpdump).setEnabled(true);
+
             }
         });
         findViewById(R.id.stop_tcpdump).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Capture_Root.StopCapture();
-//                v.setEnabled(false);
-//                findViewById(R.id.start_tcpdump).setEnabled(true);
             }
         });
-        new Capture_Root(activityreference);
+
 
     }
     public static String[] getNetworkInterfaces() throws java.io.IOException {

@@ -7,9 +7,9 @@ import java.io.File;
 import java.lang.ref.WeakReference;
 
 public class Capture_Root {
-    String captureLocation;
+    static String captureLocation;
     String captureCommand;
-    File tcpdump;
+    static File tcpdump;
 
 
 

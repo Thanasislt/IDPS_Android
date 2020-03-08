@@ -131,10 +131,16 @@ public class CaptureActivity extends AppCompatActivity  {
         findViewById(R.id.start_tcpdump).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                captureDuration[0] = npvH.getValue()*60*60 + npvM.getValue()*60 + npvS.getValue();
-                if (captureDuration[0] == 0){
+                if(Capture_Root.captureIsActive) {
+                    Log.e("Start","Cannot Start: Already running.");
                     return;
                 }
+                captureDuration[0] = npvH.getValue()*60*60 + npvM.getValue()*60 + npvS.getValue();
+                if (captureDuration[0] == 0){
+                    Log.e("Start","Cannot Start: Capture duration is 0.");
+                    return;
+                }
+                
                 Capture_Root.Capture(getApplicationContext(),"su -c "+ binaryHelper.getBinaryFile(activityreference)+" -Ul --immediate-mode " +"-i any"+" -w " +getExternalFilesDir(null).getAbsolutePath()+ "/capture.pcap",captureDuration[0]);
 //                v.setEnabled(false);
 //                findViewById(R.id.stop_tcpdump).setEnabled(true);

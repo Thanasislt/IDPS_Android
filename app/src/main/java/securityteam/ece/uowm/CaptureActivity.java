@@ -3,6 +3,7 @@ package securityteam.ece.uowm;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -48,7 +49,9 @@ public class CaptureActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_capture);
         String headerText = "Interfaces";
         final Spinner spinner = findViewById(R.id.my_spinner);
+        activityreference = new WeakReference<Activity>(this);
         String[] all_objects = null;
+
         try {
             String[] interfaces = getNetworkInterfaces();
             for (String interfaceLine : interfaces){
@@ -98,6 +101,25 @@ public class CaptureActivity extends AppCompatActivity  {
         CheckableSpinnerAdapter adapter = new CheckableSpinnerAdapter<>(this, headerText, spinner_items, selected_Interfaces,callback);
         spinner.setAdapter(adapter);
 
+
+        findViewById(R.id.start_tcpdump).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Capture_Root.Capture(getApplicationContext(),"su -c "+ binaryHelper.getBinaryFile(activityreference)+" -Ul --immediate-mode " +"-i any"+" -w " +getExternalFilesDir(null).getAbsolutePath()+ "/capture.pcap",10);
+//                v.setEnabled(false);
+//                findViewById(R.id.stop_tcpdump).setEnabled(true);
+            }
+        });
+        findViewById(R.id.stop_tcpdump).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Capture_Root.StopCapture();
+//                v.setEnabled(false);
+//                findViewById(R.id.start_tcpdump).setEnabled(true);
+            }
+        });
+        new Capture_Root(activityreference);
 
     }
     public static String[] getNetworkInterfaces() throws java.io.IOException {

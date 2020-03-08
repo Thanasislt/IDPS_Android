@@ -162,6 +162,15 @@ public class CaptureActivity extends AppCompatActivity  {
 
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Capture_Root.CleanUp();
+    }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Capture_Root.CleanUp();
+    }
 }

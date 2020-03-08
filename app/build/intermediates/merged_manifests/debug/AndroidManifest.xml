@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="securityteam.ece.uowm.MainActivity"
+            android:name="securityteam.ece.uowm.CaptureActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden" />
 
         <service

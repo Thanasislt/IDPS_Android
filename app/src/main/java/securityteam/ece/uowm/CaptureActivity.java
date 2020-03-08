@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Set;
 
 
-public class MainActivity extends AppCompatActivity  {
+public class CaptureActivity extends AppCompatActivity  {
     WeakReference<Activity> activityreference;
     Button start_button;
     Button stop_button;
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_capture);
         String headerText = "Interfaces";
         final Spinner spinner = findViewById(R.id.my_spinner);
         String[] all_objects = null;
@@ -71,10 +71,11 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
+                    selected_Interfaces.clear();
                     selected_Interfaces.addAll(all_Interfaces) ;
                 }
                 else {
-                    selected_Interfaces.clear();
+//                    selected_Interfaces.clear();
                 }
             }
         });
@@ -85,10 +86,13 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public void getSelectedItems(Set selected_items) {
                 Log.d("CheckedInterfaces",""+selected_items.size());
-                if(selected_items.size()!=0){
-                    ((CheckBox)findViewById(R.id.checkBoxInterfaceAny)).setChecked(false);
+                if(selected_items.size()==0){
+                    ((CheckBox)findViewById(R.id.checkBoxInterfaceAny)).setChecked(true);
                 }
-                else ((CheckBox)findViewById(R.id.checkBoxInterfaceAny)).setChecked(true);
+                else if (selected_items.size() == all_Interfaces.size()){
+                    ((CheckBox)findViewById(R.id.checkBoxInterfaceAny)).setChecked(true);
+                }
+                else ((CheckBox)findViewById(R.id.checkBoxInterfaceAny)).setChecked(false);
             }
         };
         CheckableSpinnerAdapter adapter = new CheckableSpinnerAdapter<>(this, headerText, spinner_items, selected_Interfaces,callback);

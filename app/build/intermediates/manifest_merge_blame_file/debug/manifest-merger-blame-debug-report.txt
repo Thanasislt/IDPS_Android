@@ -51,8 +51,8 @@
 30        </activity>
 31        <activity
 31-->C:\Users\DeRed\AndroidStudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:24:9-25:99
-32            android:name="securityteam.ece.uowm.MainActivity"
-32-->C:\Users\DeRed\AndroidStudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:24:19-47
+32            android:name="securityteam.ece.uowm.CaptureActivity"
+32-->C:\Users\DeRed\AndroidStudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:24:19-50
 33            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden" />
 33-->C:\Users\DeRed\AndroidStudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:25:13-87
 34

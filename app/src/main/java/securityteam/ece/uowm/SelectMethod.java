@@ -106,7 +106,7 @@ public class SelectMethod extends AppCompatActivity {
 
             Log.e("OnPostExecute"," "+ rootAccessGranted);
             if(rootAccessGranted) {
-                Intent intent = new Intent(this.activityWeakReference.get(), MainActivity.class);
+                Intent intent = new Intent(this.activityWeakReference.get(), CaptureActivity.class);
                 activityWeakReference.get().startActivity(intent);
             }
             else {

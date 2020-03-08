@@ -17,6 +17,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 }
 repositories {
     maven { url 'https://jitpack.io' }
@@ -35,6 +39,8 @@ dependencies {
     implementation('com.google.guava:guava:28.2-jre')
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'com.mikhaellopez:circularimageview:4.2.0'
+    implementation 'cn.carbswang.android:NumberPickerView:1.2.0'
+
 
 
 }

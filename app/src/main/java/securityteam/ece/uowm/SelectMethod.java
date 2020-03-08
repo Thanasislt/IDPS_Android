@@ -24,7 +24,8 @@ public class SelectMethod extends AppCompatActivity {
     private Button button_root;
     private Button button_non_root;
     private ViewGroup rootView;
-    private Fade mFade = new Fade(Fade.IN);;
+    private Fade mFade = new Fade(Fade.IN);
+
     LinearLayout linearLayout;
     CardView cview;
     WeakReference<Activity> activityWeakReference;

@@ -26,7 +26,7 @@ public class PacketDisplayActivity extends AppCompatActivity {
     Boolean haveFileReaded = false;
     WeakReference<Activity> activityreference;
     ArrayList<View> views = new ArrayList<>();
-    UsersAdapter adapter;
+    PacketsAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +48,7 @@ public class PacketDisplayActivity extends AppCompatActivity {
         else showPackets.setEnabled(true);
 
 //        showPackets.setOnClickListener(v -> buildTable(10));
-        adapter = new UsersAdapter(this,packetList);
+        adapter = new PacketsAdapter(this,packetList);
         ((ListView)findViewById(R.id.listView)).setAdapter(adapter);
 
     }

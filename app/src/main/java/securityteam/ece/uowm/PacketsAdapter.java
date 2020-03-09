@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class UsersAdapter extends ArrayAdapter<Packet> {
+public class PacketsAdapter extends ArrayAdapter<Packet> {
     // View lookup cache
     private static class ViewHolder {
         TextView count;
@@ -18,7 +18,7 @@ public class UsersAdapter extends ArrayAdapter<Packet> {
         TextView protocol;
     }
 
-    public UsersAdapter(Context context, ArrayList<Packet> users) {
+    public PacketsAdapter(Context context, ArrayList<Packet> users) {
         super(context, R.layout.table_row, users);
     }
 

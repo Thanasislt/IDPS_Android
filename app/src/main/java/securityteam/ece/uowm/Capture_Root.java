@@ -86,7 +86,7 @@ public  class Capture_Root {
                     long millis = millisUntilFinished % 1000;
                     long second = (millisUntilFinished / 1000) % 60;
                     long minute = (millisUntilFinished / (1000 * 60)) % 60;
-                    long hour = (millisUntilFinished / (1000 * 60 * 60)) % 24;
+                    long hour = (millisUntilFinished / (1000 * 60 * 60));
 
                     npvH.smoothScrollToValue((int)hour);
                     npvM.smoothScrollToValue((int)minute);

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
@@ -25,8 +26,9 @@ public class CaptureActivity extends AppCompatActivity  {
     private final List<CheckableSpinnerAdapter.SpinnerItem<String>> spinner_items = new ArrayList<>();
     private final Set<String> selected_Interfaces = new HashSet<>();
     private final Set<String> all_Interfaces = new HashSet<>();
+    private String command;
     NumberPickerView npvH,npvM,npvS;
-
+    private String options;
 
 
     @Override
@@ -43,6 +45,8 @@ public class CaptureActivity extends AppCompatActivity  {
         for (int i=0;i<60;i++){
             pickerValues[i] = ""+i;
         }
+
+        command = "su -c "+ binaryHelper.getBinaryFile(activityreference)+" -Ul --immediate-mode " +"-i any"+" -w " +getExternalFilesDir(null).getAbsolutePath()+ "/capture.pcap";
 
         npvH = findViewById(R.id.pickerHour);
         npvM = findViewById(R.id.pickerMinute);
@@ -62,6 +66,40 @@ public class CaptureActivity extends AppCompatActivity  {
         npvS.setMinValue(0);
         npvS.setMaxValue(pickerValues.length-1);
         npvS.setValue((int)npvS.getMaxValue()/2);
+
+        CheckBox all = findViewById(R.id.checkBoxAll);
+
+        all.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+               @Override
+               public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                   CheckBox tcp, udp, icmp, igmp;
+                   tcp = findViewById((R.id.checkBoxTcp));
+                   udp = findViewById((R.id.checkBoxUdp));
+                   icmp = findViewById((R.id.checkBoxIcmp));
+                   igmp = findViewById((R.id.checkBoxIgmp));
+
+                   if (b == true) {
+                       icmp.setChecked(false);
+                       icmp.setEnabled(false);
+
+                       igmp.setEnabled(false);
+                       igmp.setChecked(false);
+
+                       tcp.setChecked(false);
+                       tcp.setEnabled(false);
+
+                       udp.setChecked(false);
+                       udp.setEnabled(false);
+                   } else {
+                       icmp.setEnabled(true);
+                       igmp.setEnabled(true);
+                       tcp.setEnabled(true);
+                       udp.setEnabled(true);
+                   }
+               }
+           }
+            );
+
 
 
         try {
@@ -117,8 +155,8 @@ public class CaptureActivity extends AppCompatActivity  {
                 Log.e("Start","Cannot Start: Capture duration is 0.");
                 return;
             }
-
-            Capture_Root.Capture(getApplicationContext(),"su -c "+ binaryHelper.getBinaryFile(activityreference)+" -Ul --immediate-mode " +"-i any"+" -w " +getExternalFilesDir(null).getAbsolutePath()+ "/capture.pcap",captureDuration[0]);
+            UpdateSettings();
+            Capture_Root.Capture(getApplicationContext(),command+options,captureDuration[0]);
 
         });
         findViewById(R.id.stop_tcpdump).setOnClickListener(v -> Capture_Root.StopCapture());
@@ -148,15 +186,56 @@ public class CaptureActivity extends AppCompatActivity  {
         super.onResume();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Capture_Root.CleanUp();
-    }
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        Capture_Root.CleanUp();
+//    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         Capture_Root.CleanUp();
+    }
+
+    void UpdateSettings() {
+
+        CheckBox all, tcp, udp, icmp,igmp;
+        all = findViewById(R.id.checkBoxAll);
+        tcp = findViewById((R.id.checkBoxTcp));
+        udp = findViewById((R.id.checkBoxUdp));
+        icmp = findViewById((R.id.checkBoxIcmp));
+        igmp = findViewById((R.id.checkBoxIgmp));
+
+        int countChecks = 0;
+
+        options = "";
+        if (tcp.isChecked()) {
+            options += " tcp";
+            countChecks++;
+        }
+        if (udp.isChecked()) {
+            if (countChecks > 0)
+                options += " or udp";
+            else {
+                options += " udp";
+            }
+            countChecks++;
+        }
+        if (icmp.isChecked()) {
+            if (countChecks > 0)
+                options += " or icmp";
+            else {
+                options += " icmp";
+            }
+            countChecks++;
+        }
+        if (igmp.isChecked()) {
+            if (countChecks > 0) {
+                options += " or igmp";
+            } else
+                options += " igmp";
+            //countChecks++;
+        }
     }
 }

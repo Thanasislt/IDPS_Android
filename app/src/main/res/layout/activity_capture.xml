@@ -151,6 +151,7 @@
                         android:layout_height="50dp"
                         android:layout_marginEnd="8dp"
                         android:text="start"
+                        android:textAllCaps="true"
                         app:layout_constraintBottom_toBottomOf="@+id/stop_tcpdump"
                         app:layout_constraintEnd_toStartOf="@+id/stop_tcpdump"
                         app:layout_constraintHorizontal_bias="1.0"
@@ -163,6 +164,7 @@
                         android:layout_height="50dp"
                         android:layout_marginEnd="16dp"
                         android:text="STOP"
+                        android:textAllCaps="true"
                         app:layout_constraintBottom_toBottomOf="@+id/textView2"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView2" />

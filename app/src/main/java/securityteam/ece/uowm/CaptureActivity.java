@@ -4,18 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.PieEntry;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -29,16 +22,6 @@ import cn.carbswang.android.numberpickerview.library.NumberPickerView;
 
 public class CaptureActivity extends AppCompatActivity  {
     WeakReference<Activity> activityreference;
-    Button start_button;
-    Button stop_button;
-    TextView captureCount;
-    Capture_Root captureroot;
-    tcpdumpExecutor exec = new tcpdumpExecutor();
-    Capture_Root capture_root;
-    PieChart pieChart;
-    final Object lock = new Object();
-    volatile List<PieEntry> entries = new ArrayList<>();
-    List<Integer> colors = new ArrayList<>();
     private final List<CheckableSpinnerAdapter.SpinnerItem<String>> spinner_items = new ArrayList<>();
     private final Set<String> selected_Interfaces = new HashSet<>();
     private final Set<String> all_Interfaces = new HashSet<>();
@@ -53,7 +36,7 @@ public class CaptureActivity extends AppCompatActivity  {
         String headerText = "Interfaces";
         final Spinner spinner = findViewById(R.id.my_spinner);
         final int[] captureDuration = {0};
-        activityreference = new WeakReference<Activity>(this);
+        activityreference = new WeakReference<>(this);
         String[] all_objects = null;
         String[] pickerValues = new String[60];
         new Capture_Root(activityreference);
@@ -96,57 +79,43 @@ public class CaptureActivity extends AppCompatActivity  {
             spinner_items.add(new CheckableSpinnerAdapter.SpinnerItem<>(interface_Name, interface_Name));
         }
         CheckBox checkBoxAll = findViewById(R.id.checkBoxInterfaceAny);
-        checkBoxAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    selected_Interfaces.clear();
-                }
+        checkBoxAll.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked){
+                selected_Interfaces.clear();
             }
         });
 
 
 
-        CheckableSpinnerAdapter.AdapterCallback callback = new CheckableSpinnerAdapter.AdapterCallback() {
-            @Override
-            public void getSelectedItems(Set selected_items) {
-                Log.d("CheckedInterfaces",""+selected_items.size());
-                if(selected_items.size()==0){
-                    ((CheckBox)findViewById(R.id.checkBoxInterfaceAny)).setChecked(true);
-                }
-                else if (selected_items.size() == all_Interfaces.size()){
-                    ((CheckBox)findViewById(R.id.checkBoxInterfaceAny)).setChecked(true);
-                }
-                else ((CheckBox)findViewById(R.id.checkBoxInterfaceAny)).setChecked(false);
+        CheckableSpinnerAdapter.AdapterCallback callback = selected_items -> {
+            Log.d("CheckedInterfaces",""+selected_items.size());
+            if(selected_items.size()==0){
+                ((CheckBox)findViewById(R.id.checkBoxInterfaceAny)).setChecked(true);
             }
+            else if (selected_items.size() == all_Interfaces.size()){
+                ((CheckBox)findViewById(R.id.checkBoxInterfaceAny)).setChecked(true);
+            }
+            else ((CheckBox)findViewById(R.id.checkBoxInterfaceAny)).setChecked(false);
         };
         CheckableSpinnerAdapter adapter = new CheckableSpinnerAdapter<>(this, headerText, spinner_items, selected_Interfaces,callback);
         spinner.setAdapter(adapter);
 
 
-        findViewById(R.id.start_tcpdump).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(Capture_Root.captureIsActive) {
-                    Log.e("Start","Cannot Start: Already running.");
-                    return;
-                }
-                captureDuration[0] = npvH.getValue()*60*60 + npvM.getValue()*60 + npvS.getValue();
-                if (captureDuration[0] == 0){
-                    Log.e("Start","Cannot Start: Capture duration is 0.");
-                    return;
-                }
-
-                Capture_Root.Capture(getApplicationContext(),"su -c "+ binaryHelper.getBinaryFile(activityreference)+" -Ul --immediate-mode " +"-i any"+" -w " +getExternalFilesDir(null).getAbsolutePath()+ "/capture.pcap",captureDuration[0]);
-
+        findViewById(R.id.start_tcpdump).setOnClickListener(v -> {
+            if(Capture_Root.captureIsActive) {
+                Log.e("Start","Cannot Start: Already running.");
+                return;
             }
-        });
-        findViewById(R.id.stop_tcpdump).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Capture_Root.StopCapture();
+            captureDuration[0] = npvH.getValue()*60*60 + npvM.getValue()*60 + npvS.getValue();
+            if (captureDuration[0] == 0){
+                Log.e("Start","Cannot Start: Capture duration is 0.");
+                return;
             }
+
+            Capture_Root.Capture(getApplicationContext(),"su -c "+ binaryHelper.getBinaryFile(activityreference)+" -Ul --immediate-mode " +"-i any"+" -w " +getExternalFilesDir(null).getAbsolutePath()+ "/capture.pcap",captureDuration[0]);
+
         });
+        findViewById(R.id.stop_tcpdump).setOnClickListener(v -> Capture_Root.StopCapture());
 
 
     }
@@ -161,13 +130,10 @@ public class CaptureActivity extends AppCompatActivity  {
     @Override
     protected void onStart() {
         super.onStart();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                npvH.smoothScrollToValue(0);
-                npvM.smoothScrollToValue(0);
-                npvS.smoothScrollToValue(0);
-            }
+        new Handler().postDelayed(() -> {
+            npvH.smoothScrollToValue(0);
+            npvM.smoothScrollToValue(0);
+            npvS.smoothScrollToValue(0);
         },500);
     }
 

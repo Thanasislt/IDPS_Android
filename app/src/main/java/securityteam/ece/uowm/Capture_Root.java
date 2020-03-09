@@ -10,7 +10,6 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.util.TimerTask;
 
 import cn.carbswang.android.numberpickerview.library.NumberPickerView;
 
@@ -20,7 +19,6 @@ public  class Capture_Root {
     static File tcpdump;
     static boolean captureIsActive = false;
     static Process captureProcess = null;
-    static int ProccessID = -1;
     static CountDownTimer cdt;
     static AsyncTask captureTask = null;
     static WeakReference<Activity> activityReference;
@@ -55,12 +53,10 @@ public  class Capture_Root {
                     if(!captureIsActive && captureProcess ==null){
                         Log.d("Capture","Starting");
                         captureIsActive = true;
-
                         System.out.println(command);
                         captureProcess= Runtime.getRuntime().exec(command);
                         captureProcess.waitFor();
                     }
-
                 } catch (IOException e) {
                     Log.d("Capture","IOExpection");
                 }
@@ -82,29 +78,11 @@ public  class Capture_Root {
             }
         }.execute();
 
-        TimerTask timeout = new TimerTask() {
-            @Override
-            public void run() {
-                    StopCapture();
-            }
-        };
-//        Timer t = new Timer();
-//        t.schedule(timeout,captureDurationSeconds*1000L);
-//        Ticker tickernew = new Ticker() {
-//            @Override
-//            public long read() {
-//                return 0;
-//            }
-//        };
          cdt = new CountDownTimer(captureDurationSeconds * 1000L, 1000) {
 
 
             public void onTick(long millisUntilFinished) {
-//                mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
-                //here you can have your logic to set text to edittext
-
                 if (activityReference != null) {
-//                   TextView tv =  (TextView)activityReference.get().findViewById(R.id.remainingTime);
                     long millis = millisUntilFinished % 1000;
                     long second = (millisUntilFinished / 1000) % 60;
                     long minute = (millisUntilFinished / (1000 * 60)) % 60;
@@ -113,8 +91,6 @@ public  class Capture_Root {
                     npvH.smoothScrollToValue((int)hour);
                     npvM.smoothScrollToValue((int)minute);
                     npvS.smoothScrollToValue((int) second);
-
-
                 }
             }
 
@@ -124,8 +100,6 @@ public  class Capture_Root {
                     npvH.smoothScrollToValue(0);
                     npvM.smoothScrollToValue(0);
                     npvS.smoothScrollToValue(0);
-//                    TextView tv =  (TextView)activityReference.get().findViewById(R.id.remainingTime);
-//                    tv.setText("00:00");
                 }
             }
 

@@ -33,7 +33,7 @@ public class CaptureActivity extends AppCompatActivity  {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_capture);
-        String headerText = "Interfaces";
+        String headerText = "";
         final Spinner spinner = findViewById(R.id.my_spinner);
         final int[] captureDuration = {0};
         activityreference = new WeakReference<>(this);

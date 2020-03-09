@@ -3,6 +3,7 @@ package securityteam.ece.uowm;
 import java.util.Date;
 
 public class Packet {
+    private int count;
     private String Protocol;
     private String Source;
     private String Destination;
@@ -10,7 +11,8 @@ public class Packet {
     private String Port;
     private Date date;
 
-    public Packet(String protocol, String source, String destination, String bytes, String port, Date date) {
+    public Packet(int count,String protocol, String source, String destination, String bytes, String port, Date date) {
+        this.count = count;
         Protocol = protocol;
         Source = source;
         Destination = destination;
@@ -19,7 +21,8 @@ public class Packet {
         this.date = date;
     }
 
-    public Packet(String protocol, String source, String destination) {
+    public Packet(int count,String protocol, String source, String destination) {
+        this.count = count;
         Protocol = protocol;
         Source = source;
         Destination = destination;
@@ -28,6 +31,10 @@ public class Packet {
 
     public Packet() {
 
+    }
+
+    public int getCount() {
+        return count;
     }
 
     String getProtocol(){

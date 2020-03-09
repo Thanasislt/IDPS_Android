@@ -2,6 +2,7 @@ package securityteam.ece.uowm;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -67,16 +68,17 @@ public class CaptureActivity extends AppCompatActivity  {
         npvH.setDisplayedValues(pickerValues);
         npvH.setMinValue(0);
         npvH.setMaxValue(pickerValues.length-1);
-
+        npvH.setValue((int)npvH.getMaxValue()/2);
 
         npvM.setDisplayedValues(pickerValues);
         npvM.setMinValue(0);
         npvM.setMaxValue(pickerValues.length-1);
+        npvM.setValue((int)npvM.getMaxValue()/2);
 
         npvS.setDisplayedValues(pickerValues);
         npvS.setMinValue(0);
         npvS.setMaxValue(pickerValues.length-1);
-
+        npvS.setValue((int)npvS.getMaxValue()/2);
 
 
         try {
@@ -157,9 +159,21 @@ public class CaptureActivity extends AppCompatActivity  {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                npvH.smoothScrollToValue(0);
+                npvM.smoothScrollToValue(0);
+                npvS.smoothScrollToValue(0);
+            }
+        },500);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
-
     }
 
     @Override

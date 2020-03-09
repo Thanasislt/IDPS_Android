@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,71 +53,6 @@ public class PacketDisplayActivity extends AppCompatActivity {
 
     }
 
-    void buildTable(int packets){
-        int loopTimes;
-
-        if(packets>packetList.size())
-            loopTimes = packetList.size();
-        else {
-            loopTimes = packets;
-        }
-
-
-        //Packet Loop
-        for(int i=0;i<loopTimes;i++) {
-            TableRow row = new TableRow(this);
-            row.setLayoutParams(new TableRow.LayoutParams(
-                    TableRow.LayoutParams.MATCH_PARENT,
-                    TableRow.LayoutParams.WRAP_CONTENT));
-
-            TextView num = new TextView(this);
-            TextView src = new TextView(this);
-            TextView dest = new TextView(this);
-            TextView protocol = new TextView(this);
-
-            num.setText(String.valueOf(i));
-            src.setText(packetList.get(i).getSource());
-            dest.setText(packetList.get(i).getDestination());
-            protocol.setText(packetList.get(i).getProtocol());
-            num.setPadding(10, 0, 10, 0);
-            src.setPadding(10, 0, 10, 0);
-            dest.setPadding(10, 0, 10, 0);
-            protocol.setPadding(10, 0, 10, 0);
-
-            row.addView(num);
-            row.addView(src);
-            row.addView(dest);
-            row.addView(protocol);
-
-//            .addView(row);
-
-
-
-
-
-        }
-    }
-
-
-    private class TableBuilder extends AsyncTask<Integer, Integer, String> {
-        TableBuilder() {
-        }
-
-        @Override
-        protected String doInBackground(Integer[] objects) {
-//            buildTable(objects[0]);
-            return null;
-        }
-
-        protected void onProgressUpdate(Integer... progress) {
-            //setProgressPercent(progress[0]);
-        }
-
-        protected void onPostExecute(String result) {
-            //setFinish(result);
-        }
-
-        }
 
     private class reader extends AsyncTask<Object, Object, String> {
          WeakReference<Activity> weakReference = null;

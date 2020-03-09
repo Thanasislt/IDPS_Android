@@ -46,6 +46,18 @@ public class SelectMethod extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.button_vpn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity();
+            }
+        });
+
+    }
+
+    public void startActivity(){
+        Intent in = new Intent(this,PacketDisplayActivity.class);
+        startActivity(in);
     }
 
     @Override

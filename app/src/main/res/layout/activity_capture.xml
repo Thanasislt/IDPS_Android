@@ -11,9 +11,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="0dp"
         android:background="@color/colorPrimaryLight"
-        android:padding="0dp"
         android:scrollbarAlwaysDrawHorizontalTrack="false"
         android:scrollbarAlwaysDrawVerticalTrack="false"
         android:scrollbars="none"
@@ -44,24 +42,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:padding="12dp">
+                    android:padding="8dp">
 
                     <TextView
                         android:id="@+id/textView8"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
 
-                        android:padding="8dp"
                         android:text="Capture Duration:"
-                        android:textAlignment="textStart"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="2"
                         android:orientation="horizontal">
 
                         <cn.carbswang.android.numberpickerview.library.NumberPickerView
@@ -126,50 +121,39 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="12dp">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
 
                     <TextView
                         android:id="@+id/textView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
                         android:text="Capture control:"
-                        android:textSize="18dp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                     <Button
                         android:id="@+id/start_tcpdump"
-                        android:layout_width="90dp"
-                        android:layout_height="50dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="start"
-                        android:textAllCaps="true"
-                        app:layout_constraintBottom_toBottomOf="@+id/stop_tcpdump"
-                        app:layout_constraintEnd_toStartOf="@+id/stop_tcpdump"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/textView2"
-                        app:layout_constraintTop_toTopOf="@+id/stop_tcpdump" />
+                        android:textAllCaps="true" />
 
                     <Button
                         android:id="@+id/stop_tcpdump"
-                        android:layout_width="90dp"
-                        android:layout_height="50dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="STOP"
-                        android:textAllCaps="true"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView2"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView2" />
+                        android:textAllCaps="true" />
+                </LinearLayout>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -177,53 +161,41 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="12dp">
+                    android:orientation="horizontal"
+                    android:padding="8dp">
 
                     <TextView
                         android:id="@+id/textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
                         android:text="Capture interface:"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:textStyle="bold" />
 
                     <CheckBox
                         android:id="@+id/checkBoxInterfaceAny"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
                         android:checked="true"
-                        android:text="All"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/my_spinner"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/textView"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:text="All" />
 
                     <Spinner
                         android:id="@+id/my_spinner"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="2"
                         android:dropDownWidth="match_parent"
-                        android:gravity="right"
-                        android:minWidth="200dp"
-                        android:spinnerMode="dialog"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/checkBoxInterfaceAny"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:spinnerMode="dialog" />
+                </LinearLayout>
+
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -231,42 +203,32 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="12dp">
-
-                    <EditText
-                        android:id="@+id/host_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:ems="10"
-                        android:hint="Leave blank for any host"
-                        android:inputType="textPersonName"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView4"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/textView4"
-                        app:layout_constraintTop_toTopOf="@+id/textView4" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
 
                     <TextView
                         android:id="@+id/textView4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:gravity="center_horizontal|center_vertical"
+                        android:layout_weight="1"
                         android:text="Filter by host:"
-                        android:textAlignment="center"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/host_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="Leave blank for any host"
+                        android:inputType="textPersonName"
+                        android:singleLine="true" />
+                </LinearLayout>
+
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -274,114 +236,77 @@
                 android:layout_height="match_parent"
                 android:layout_margin="12dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="12dp">
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
-                    <CheckBox
-                        android:id="@+id/checkBoxAll"
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="32dp"
-                        android:checked="true"
-                        android:text="ALL"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView3"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/textView3"
-                        app:layout_constraintTop_toTopOf="@+id/textView3" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:padding="8dp">
 
-                    <CheckBox
-                        android:id="@+id/checkBoxUdp"
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
-                        android:enabled="false"
-                        android:text="UDP"
-                        app:layout_constraintEnd_toEndOf="@+id/checkBoxAll"
-                        app:layout_constraintStart_toEndOf="@+id/checkBoxAll"
-                        app:layout_constraintTop_toBottomOf="@+id/checkBoxAll" />
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:text="Filter by protocol:"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
-                    <CheckBox
-                        android:id="@+id/checkBoxIcmp"
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:enabled="false"
-                        android:text="ICMP"
-                        app:layout_constraintEnd_toStartOf="@+id/checkBoxUdp"
-                        app:layout_constraintStart_toStartOf="@+id/checkBoxTcp"
-                        app:layout_constraintTop_toBottomOf="@+id/checkBoxTcp" />
+                        <CheckBox
+                            android:id="@+id/checkBoxAll"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right|center_vertical|end"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:text="All" />
+                    </LinearLayout>
 
-                    <CheckBox
-                        android:id="@+id/checkBoxTcp"
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:enabled="false"
-                        android:text="TCP"
-                        app:layout_constraintEnd_toStartOf="@+id/checkBoxAll"
-                        app:layout_constraintStart_toStartOf="@+id/checkBoxAll"
-                        app:layout_constraintTop_toBottomOf="@+id/checkBoxAll" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:text="Filter by protocol:"
-                        android:textAlignment="center"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        <CheckBox
+                            android:id="@+id/checkBoxUdp"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:enabled="false"
+                            android:text="UDP" />
 
-                    <CheckBox
-                        android:id="@+id/checkBoxIgmp"
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:enabled="false"
-                        android:text="IGMP"
-                        app:layout_constraintEnd_toEndOf="@+id/checkBoxUdp"
-                        app:layout_constraintStart_toStartOf="@+id/checkBoxUdp"
-                        app:layout_constraintTop_toBottomOf="@+id/checkBoxUdp" />
+                        <CheckBox
+                            android:id="@+id/checkBoxTcp"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:enabled="false"
+                            android:text="TCP" />
 
-                    <CheckBox
-                        android:id="@+id/checkBox3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:enabled="false"
-                        android:text="Custom Protocol Number:"
-                        app:layout_constraintBottom_toBottomOf="@+id/editText"
-                        app:layout_constraintEnd_toStartOf="@+id/editText"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="@+id/textView3"
-                        app:layout_constraintTop_toTopOf="@+id/editText" />
+                        <CheckBox
+                            android:id="@+id/checkBoxIgmp"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:enabled="false"
+                            android:text="IGMP" />
 
-                    <EditText
-                        android:id="@+id/editText"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:ems="10"
-                        android:enabled="false"
-                        android:inputType="number"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/checkBoxIgmp"
-                        app:layout_constraintStart_toStartOf="@+id/checkBoxIcmp"
-                        app:layout_constraintTop_toBottomOf="@+id/checkBoxIcmp" />
+                        <CheckBox
+                            android:id="@+id/checkBoxIcmp"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:enabled="false"
+                            android:text="ICMP" />
+                    </LinearLayout>
+                </LinearLayout>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>

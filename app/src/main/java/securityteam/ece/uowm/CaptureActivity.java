@@ -66,11 +66,17 @@ public class CaptureActivity extends AppCompatActivity  {
 
         try {
             String[] interfaces = getNetworkInterfaces();
+            String interfaceName="";
             for (String interfaceLine : interfaces){
                 String[] interfaceFields = interfaceLine.split(" ");
-                String interfaceName = interfaceFields[0];
-                all_Interfaces.add(interfaceName);
-                Log.d("INTERFACES","Interfaces: " + interfaceName);
+                if (!interfaceFields[0].equals("") && !interfaceFields[0].equals(" ")){
+                    interfaceName = interfaceFields[0];
+                    all_Interfaces.add(interfaceName);
+                    Log.d("INTERFACES","Interfaces: " + interfaceName);
+                }
+//                else  interfaceName = "";
+
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -120,11 +126,17 @@ public class CaptureActivity extends AppCompatActivity  {
 
     }
     public static String[] getNetworkInterfaces() throws java.io.IOException {
-        java.util.Scanner s = new java.util.Scanner(Runtime.getRuntime().exec("su -c ifconfig -S").getInputStream()).useDelimiter("\\A");
+        java.util.Scanner s = new java.util.Scanner(Runtime.getRuntime().exec("su -c ifconfig").getInputStream()).useDelimiter("\\A");
         String[] lines = (s.hasNext() ? s.next() : "").split("\n");
+        ArrayList<String> list = new ArrayList<>();
+        for(String line : lines){
+                String tmp = line.trim().replaceAll("\\s+", " ");
+            if (!tmp.equals("") && !tmp.equals(" ")){
+                list.add(line);
+            }
+        }
 
-
-        return lines;
+        return list.toArray(new String[list.size()]);
     }
 
     @Override

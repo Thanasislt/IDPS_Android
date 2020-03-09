@@ -193,7 +193,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="2"
                         android:dropDownWidth="match_parent"
-                        android:spinnerMode="dropdown" />
+                        android:spinnerMode="dialog" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>

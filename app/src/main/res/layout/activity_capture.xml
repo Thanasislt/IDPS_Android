@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/background_light"
-    tools:context=".CaptureActivity">
+    tools:context=".CaptureActivity"
+    android:animateLayoutChanges="true">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -33,6 +34,141 @@
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+
+                        android:padding="8dp"
+                        android:text="Capture Duration:"
+                        android:textAlignment="textStart"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:orientation="horizontal">
+
+                        <cn.carbswang.android.numberpickerview.library.NumberPickerView
+                            android:id="@+id/pickerHour"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+
+
+                            android:contentDescription="test_number_picker_view"
+                            android:padding="4dp"
+                            app:npv_HintText="h"
+                            app:npv_ItemPaddingHorizontal="5dp"
+                            app:npv_ItemPaddingVertical="5dp"
+                            app:npv_ShownCount="3"
+                            app:npv_TextSizeNormal="16sp"
+                            app:npv_TextSizeSelected="20sp"
+                            app:npv_WrapSelectorWheel="true" />
+
+                        <cn.carbswang.android.numberpickerview.library.NumberPickerView
+                            android:id="@+id/pickerMinute"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+
+                            android:contentDescription="test_number_picker_view"
+                            android:padding="4dp"
+                            app:npv_HintText="m"
+                            app:npv_ItemPaddingHorizontal="5dp"
+                            app:npv_ItemPaddingVertical="5dp"
+                            app:npv_MinValue="0"
+                            app:npv_RespondChangeOnDetached="false"
+                            app:npv_ShownCount="3"
+                            app:npv_TextSizeNormal="16sp"
+                            app:npv_TextSizeSelected="20sp"
+                            app:npv_WrapSelectorWheel="true" />
+
+                        <cn.carbswang.android.numberpickerview.library.NumberPickerView
+                            android:id="@+id/pickerSecond"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+
+                            android:contentDescription="test_number_picker_view"
+                            android:padding="4dp"
+                            app:npv_HintText="s"
+                            app:npv_ItemPaddingHorizontal="5dp"
+                            app:npv_ItemPaddingVertical="5dp"
+                            app:npv_MinValue="0"
+                            app:npv_RespondChangeOnDetached="false"
+                            app:npv_ShownCount="3"
+                            app:npv_TextSizeNormal="16sp"
+                            app:npv_TextSizeSelected="20sp"
+                            app:npv_WrapSelectorWheel="true" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="Capture control:"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/start_tcpdump"
+                        android:layout_width="90dp"
+                        android:layout_height="50dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="start"
+                        app:layout_constraintBottom_toBottomOf="@+id/stop_tcpdump"
+                        app:layout_constraintEnd_toStartOf="@+id/stop_tcpdump"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/textView2"
+                        app:layout_constraintTop_toTopOf="@+id/stop_tcpdump" />
+
+                    <Button
+                        android:id="@+id/stop_tcpdump"
+                        android:layout_width="90dp"
+                        android:layout_height="50dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="STOP"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textView2" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -85,55 +221,6 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/checkBoxInterfaceAny"
                         app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="12dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="12dp">
-
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:text="Capture control:"
-                        android:textSize="18dp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <Button
-                        android:id="@+id/start_tcpdump"
-                        android:layout_width="90dp"
-                        android:layout_height="50dp"
-                        android:layout_marginEnd="8dp"
-                        android:text="start"
-                        app:layout_constraintBottom_toBottomOf="@+id/stop_tcpdump"
-                        app:layout_constraintEnd_toStartOf="@+id/stop_tcpdump"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/textView2"
-                        app:layout_constraintTop_toTopOf="@+id/stop_tcpdump" />
-
-                    <Button
-                        android:id="@+id/stop_tcpdump"
-                        android:layout_width="90dp"
-                        android:layout_height="50dp"
-                        android:layout_marginEnd="16dp"
-                        android:enabled="false"
-                        android:text="STOP"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView2"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView2" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 

@@ -1,26 +1,34 @@
 package securityteam.ece.uowm;
 
 import android.app.Activity;
+import android.content.Context;
+import android.os.AsyncTask;
+import android.os.CountDownTimer;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 
-public class Capture_Root {
+import cn.carbswang.android.numberpickerview.library.NumberPickerView;
+
+public  class Capture_Root {
     static String captureLocation;
-    String captureCommand;
+    static String captureCommand;
     static File tcpdump;
-
-
+    static boolean captureIsActive = false;
+    static Process captureProcess = null;
+    static CountDownTimer cdt;
+    static AsyncTask captureTask = null;
+    static WeakReference<Activity> activityReference;
 
     public Capture_Root(WeakReference<Activity> activityReference){
-        tcpdump = new binaryHelper().getBinaryFile(activityReference);
+        this.activityReference = activityReference;
+        if (tcpdump == null ) tcpdump = new binaryHelper().getBinaryFile(activityReference);
         try{
             if (tcpdump!=null) {
-//                captureLocation = Environment.getExternalStorageDirectory().getAbsolutePath();
                 captureLocation = activityReference.get().getExternalFilesDir(null).getAbsolutePath();
-                this.captureCommand =
-                        "su -c " + tcpdump.getAbsolutePath() + "  -i any -Ul --immediate-mode -w - | tee " + captureLocation + "/capture.pcap |" + tcpdump.getAbsolutePath() + " -Utvvvnnl --immediate-mode -r - | grep 'proto'";
             }
             else{
                 Toast.makeText(activityReference.get(),"Capture_Root: Binary file is null! ",Toast.LENGTH_LONG).show();
@@ -31,34 +39,116 @@ public class Capture_Root {
         }
 
     }
+    public static void Capture(final Context context,final String command,final int captureDurationSeconds)  {
+        NumberPickerView npvH,npvM,npvS;
+        npvH = activityReference.get().findViewById(R.id.pickerHour);
+        npvM = activityReference.get().findViewById(R.id.pickerMinute);
+        npvS = activityReference.get().findViewById(R.id.pickerSecond);
+        captureTask= new AsyncTask<Void, Void, Void>()  {
+            @Override
+            protected Void doInBackground(Void... voids) {
 
-    public void updateCaptureCommand(String a){
+                try {
+                    captureLocation = context.getExternalFilesDir(null).getAbsolutePath();
+                    if(!captureIsActive && captureProcess ==null){
+                        Log.d("Capture","Starting");
+                        captureIsActive = true;
+                        System.out.println(command);
+                        captureProcess= Runtime.getRuntime().exec(command);
+                        captureProcess.waitFor();
+                    }
+                } catch (IOException e) {
+                    Log.d("Capture","IOExpection");
+                }
+                catch (IllegalThreadStateException e) {
+                    Log.d("Capture", "Still alive");
+                } catch (InterruptedException e) {
+                    Log.d("Capture", "Interrupted");
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+//                Log.d("Capture","Ended");
+                Log.d("Capture","Finished");
+                captureIsActive = false;
+                captureProcess = null;
+            }
+        }.execute();
+
+         cdt = new CountDownTimer(captureDurationSeconds * 1000L, 1000) {
 
 
-        this.captureCommand = "su -c " + tcpdump.getAbsolutePath() + "  -i any " + a + " -Ul --immediate-mode -w - | tee "+ captureLocation+ "/capture.pcap |" + tcpdump.getAbsolutePath()+" -Utvvvnnl --immediate-mode -r - | grep 'proto'";
+            public void onTick(long millisUntilFinished) {
+                if (activityReference != null) {
+                    long millis = millisUntilFinished % 1000;
+                    long second = (millisUntilFinished / 1000) % 60;
+                    long minute = (millisUntilFinished / (1000 * 60)) % 60;
+                    long hour = (millisUntilFinished / (1000 * 60 * 60)) % 24;
+
+                    npvH.smoothScrollToValue((int)hour);
+                    npvM.smoothScrollToValue((int)minute);
+                    npvS.smoothScrollToValue((int) second);
+                }
+            }
+
+            public void onFinish() {
+                StopCapture();
+                if (activityReference != null) {
+                    npvH.smoothScrollToValue(0);
+                    npvM.smoothScrollToValue(0);
+                    npvS.smoothScrollToValue(0);
+                }
+            }
+
+        };
+        cdt.start();
+
+
+
+
+    }
+    public static void StopCapture()  {
+        if (activityReference==null) return;
+        NumberPickerView npvH,npvM,npvS;
+        npvH = activityReference.get().findViewById(R.id.pickerHour);
+        npvM = activityReference.get().findViewById(R.id.pickerMinute);
+        npvS = activityReference.get().findViewById(R.id.pickerSecond);
+        if(captureProcess!=null && captureIsActive ){
+            try{
+                Log.d("Capture","Trying to kill...");
+                Process p =Runtime.getRuntime().exec("su -c killall tcpdump");
+                captureIsActive= false;
+                Log.d("Capture","Killed");
+                captureProcess = null;
+                cdt.cancel();
+                npvH.smoothScrollToValue(0);
+                npvM.smoothScrollToValue(0);
+                npvS.smoothScrollToValue(0);
+            } catch (IllegalThreadStateException e){
+                Log.d("Capture","Still alive");
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        else{
+            Log.d("Capture","Can't Stop: Not Running.");
+        }
     }
 
-    public String getCaptureCommand() {
-        return captureCommand;
+    public static void CleanUp(){
+        StopCapture();
+        if (captureTask!=null)captureTask.cancel(true);
+        captureLocation=null;
+        captureCommand=null;
+
+        captureTask = null;
+
+
     }
 
-    public String getCaptureLocation() {
-        return captureLocation;
-    }
-
-    public void setCaptureCommand(String captureCommand) {
-        this.captureCommand = captureCommand;
-    }
-
-    public void setBinaryFile(File binaryLocation) {
-        this.tcpdump = binaryLocation;
-    }
-
-    public void setCaptureLocation(String captureLocation) {
-        this.captureLocation = captureLocation;
-    }
-
-    public File getBinaryFile() {
-        return tcpdump;
-    }
 }

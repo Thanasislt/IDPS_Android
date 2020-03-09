@@ -11,7 +11,7 @@ import java.lang.ref.WeakReference;
 
 public class binaryHelper {
 
-    File getBinaryFile(WeakReference<Activity> activityReference){
+    static File  getBinaryFile(WeakReference<Activity> activityReference){
         if (installBinary(activityReference) != -1){
             return activityReference.get().getFileStreamPath("tcpdump");
         }
@@ -24,7 +24,7 @@ public class binaryHelper {
      * @param activityReference A WeakReference to the calling activity.
      * @return Returns true if  the tcpdump binary is found in the App's folder.
      */
-    boolean isBinaryInstalled(WeakReference<Activity> activityReference){
+    static boolean isBinaryInstalled(WeakReference<Activity> activityReference){
         return activityReference.get().getFileStreamPath ("tcpdump").exists();
     }
 
@@ -37,7 +37,7 @@ public class binaryHelper {
      * 2) If binary already exists so  installation is unnecessary
      *
      */
-    int installBinary(WeakReference<Activity> activityReference){
+    static int installBinary(WeakReference<Activity> activityReference){
         File file = activityReference.get().getFileStreamPath("tcpdump");
         try {
             if (!isBinaryInstalled(activityReference)) {

@@ -62,19 +62,24 @@ public class SelectMethod extends AppCompatActivity {
         findViewById(R.id.button_vpn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fab.performLongClick();
-                view.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        new IntentRootCapture(activityWeakReference).execute();
-                    }
-                },300);
-
+               // fab.performLongClick();
+                //view.postDelayed(new Runnable() {
+                 //   @Override
+                  //  public void run() {
+                  //      new IntentRootCapture(activityWeakReference).execute();
+                 //   }
+               // },300);
+                openActivity();
             }
         });
 
 //        fab.setAnimation(AnimationUtils.loadAnimation(activityWeakReference.get(), R.anim.rotate360));
 
+    }
+
+    private void openActivity(){
+        Intent intent = new Intent(this,PacketDisplayActivity.class);
+        startActivity(intent);
     }
 
 //    @Override

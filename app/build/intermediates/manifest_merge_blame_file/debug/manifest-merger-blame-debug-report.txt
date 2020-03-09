@@ -18,60 +18,62 @@
 12-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:6:22-74
 13
 14    <application
-14-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:8:5-34:19
+14-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:8:5-35:19
 15        android:allowBackup="true"
 15-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:9:9-35
 16        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 16-->[androidx.core:core:1.1.0] C:\Users\Giannis\.gradle\caches\transforms-2\files-2.1\bf83ca3f4924d1664c7ab7644fe44b20\core-1.1.0\AndroidManifest.xml:24:18-86
-17        android:debuggable="true"
-18        android:icon="@mipmap/ic_launcher"
-18-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:10:9-43
-19        android:label="@string/app_name"
-19-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:11:9-41
-20        android:roundIcon="@mipmap/ic_launcher_round"
-20-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:12:9-54
-21        android:supportsRtl="true"
-21-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:13:9-35
-22        android:testOnly="true"
-23        android:theme="@style/AppTheme" >
-23-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:14:9-40
-24        <activity android:name="securityteam.ece.uowm.PacketDisplayActivity" />
-24-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:15:9-68
-24-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:15:19-56
-25        <activity android:name="securityteam.ece.uowm.SelectMethod" >
-25-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:16:9-22:20
-25-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:16:19-47
-26            <intent-filter>
-26-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:17:13-21:29
-27                <action android:name="android.intent.action.MAIN" />
-27-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:18:17-69
-27-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:18:25-66
-28
-29                <category android:name="android.intent.category.LAUNCHER" />
-29-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:20:17-77
-29-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:20:27-74
-30            </intent-filter>
-31        </activity>
-32        <activity
-32-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:23:9-25:90
-33            android:name="securityteam.ece.uowm.CaptureActivity"
-33-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:24:13-44
-34            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden" />
-34-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:25:13-87
-35
-36        <service
-36-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:27:9-33:19
-37            android:name="securityteam.ece.uowm.LocalVPNService"
-37-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:28:13-44
-38            android:permission="android.permission.BIND_VPN_SERVICE" >
-38-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:29:13-69
-39            <intent-filter>
-39-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:30:13-32:29
-40                <action android:name="android.net.VpnService" />
-40-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:31:17-65
-40-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:31:25-62
-41            </intent-filter>
-42        </service>
-43    </application>
-44
-45</manifest>
+17        android:configChanges="orientation"
+17-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:14:9-44
+18        android:debuggable="true"
+19        android:icon="@mipmap/ic_launcher"
+19-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:10:9-43
+20        android:label="@string/app_name"
+20-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:11:9-41
+21        android:roundIcon="@mipmap/ic_launcher_round"
+21-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:12:9-54
+22        android:supportsRtl="true"
+22-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:13:9-35
+23        android:testOnly="true"
+24        android:theme="@style/AppTheme" >
+24-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:15:9-40
+25        <activity android:name="securityteam.ece.uowm.PacketDisplayActivity" />
+25-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:16:9-68
+25-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:16:19-56
+26        <activity android:name="securityteam.ece.uowm.SelectMethod" >
+26-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:17:9-23:20
+26-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:17:19-47
+27            <intent-filter>
+27-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:18:13-22:29
+28                <action android:name="android.intent.action.MAIN" />
+28-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:19:17-69
+28-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:19:25-66
+29
+30                <category android:name="android.intent.category.LAUNCHER" />
+30-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:21:17-77
+30-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:21:27-74
+31            </intent-filter>
+32        </activity>
+33        <activity
+33-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:24:9-26:90
+34            android:name="securityteam.ece.uowm.CaptureActivity"
+34-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:25:13-44
+35            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden" />
+35-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:26:13-87
+36
+37        <service
+37-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:28:9-34:19
+38            android:name="securityteam.ece.uowm.LocalVPNService"
+38-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:29:13-44
+39            android:permission="android.permission.BIND_VPN_SERVICE" >
+39-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:30:13-69
+40            <intent-filter>
+40-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:31:13-33:29
+41                <action android:name="android.net.VpnService" />
+41-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:32:17-65
+41-->C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:32:25-62
+42            </intent-filter>
+43        </service>
+44    </application>
+45
+46</manifest>

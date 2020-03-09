@@ -29,4 +29,15 @@ public class Packet {
     public Packet() {
 
     }
+
+    String getProtocol(){
+        return this.Protocol;
+    }
+
+    String getSource() {
+        return this.Source;
+    }
+    String getDestination(){
+        return this.Destination;
+    }
 }

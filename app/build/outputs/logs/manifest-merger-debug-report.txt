@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:2:1-36:12
-INJECTED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:2:1-36:12
-INJECTED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:2:1-36:12
-INJECTED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:2:1-36:12
+ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:2:1-37:12
+INJECTED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:2:1-37:12
+INJECTED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:2:1-37:12
+INJECTED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:2:1-37:12
 MERGED from [androidx.preference:preference:1.1.0] C:\Users\Giannis\.gradle\caches\transforms-2\files-2.1\96dd3b59b137ee832376c205c070253c\preference-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\Giannis\.gradle\caches\transforms-2\files-2.1\2d2c6f3da74613c10ce2307f85c1d421\material-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.appcompat:appcompat:1.1.0] C:\Users\Giannis\.gradle\caches\transforms-2\files-2.1\dd71a5238f7c9465676b6657687347f3\appcompat-1.1.0\AndroidManifest.xml:17:1-24:12
@@ -35,20 +35,20 @@ MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Giannis\.gradle\
 MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\Giannis\.gradle\caches\transforms-2\files-2.1\12969a406a72cec66aef479a998217aa\lifecycle-livedata-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\Giannis\.gradle\caches\transforms-2\files-2.1\cb8465ad43d29c634ccaa161b3ed6bf5\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\Giannis\.gradle\caches\transforms-2\files-2.1\7ca9d5e6276163a4ac548c7b01439c6d\core-runtime-2.0.0\AndroidManifest.xml:17:1-22:12
-INJECTED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:2:1-36:12
-INJECTED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:2:1-36:12
-INJECTED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:2:1-36:12
+INJECTED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:2:1-37:12
+INJECTED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:2:1-37:12
+INJECTED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:2:1-37:12
 	package
 		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:3:5-36
 		INJECTED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:2:1-36:12
+		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:2:1-37:12
 		INJECTED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml
 	android:versionCode
 		INJECTED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:2:1-36:12
+		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:2:1-37:12
 		INJECTED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:2:11-69
@@ -61,7 +61,7 @@ ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidMani
 	android:name
 		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:6:22-74
 application
-ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:8:5-34:19
+ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:8:5-35:19
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\Giannis\.gradle\caches\transforms-2\files-2.1\2d2c6f3da74613c10ce2307f85c1d421\material-1.1.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\Giannis\.gradle\caches\transforms-2\files-2.1\2d2c6f3da74613c10ce2307f85c1d421\material-1.1.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] C:\Users\Giannis\.gradle\caches\transforms-2\files-2.1\56e12ac41455eadd655955de60af1a4d\constraintlayout-1.1.3\AndroidManifest.xml:9:5-20
@@ -78,48 +78,50 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\Gi
 		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:11:9-41
 	android:roundIcon
 		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:12:9-54
+	android:configChanges
+		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:14:9-44
 	android:icon
 		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:10:9-43
 	android:allowBackup
 		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:9:9-35
 	android:theme
-		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:14:9-40
+		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:15:9-40
 activity#securityteam.ece.uowm.PacketDisplayActivity
-ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:15:9-68
+ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:16:9-68
 	android:name
-		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:15:19-56
+		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:16:19-56
 activity#securityteam.ece.uowm.SelectMethod
-ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:16:9-22:20
+ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:17:9-23:20
 	android:name
-		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:16:19-47
+		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:17:19-47
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:17:13-21:29
+ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:18:13-22:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:18:17-69
+ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:19:17-69
 	android:name
-		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:18:25-66
+		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:19:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:20:17-77
+ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:21:17-77
 	android:name
-		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:20:27-74
+		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:21:27-74
 activity#securityteam.ece.uowm.CaptureActivity
-ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:23:9-25:90
+ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:24:9-26:90
 	android:configChanges
-		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:25:13-87
+		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:26:13-87
 	android:name
-		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:24:13-44
+		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:25:13-44
 service#securityteam.ece.uowm.LocalVPNService
-ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:27:9-33:19
+ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:28:9-34:19
 	android:permission
-		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:29:13-69
+		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:30:13-69
 	android:name
-		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:28:13-44
+		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:29:13-44
 intent-filter#action:name:android.net.VpnService
-ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:30:13-32:29
+ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:31:13-33:29
 action#android.net.VpnService
-ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:31:17-65
+ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:32:17-65
 	android:name
-		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:31:25-62
+		ADDED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml:32:25-62
 uses-sdk
 INJECTED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\Giannis\StudioProjects\IDPS_Android\app\src\main\AndroidManifest.xml

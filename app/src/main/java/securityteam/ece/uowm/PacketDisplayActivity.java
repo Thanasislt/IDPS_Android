@@ -36,7 +36,7 @@ public class PacketDisplayActivity extends AppCompatActivity {
 
 
         captureroot = capture_root;
-        showPackets = findViewById(R.id.showPacket);
+//        showPackets = findViewById(R.id.showPacket);
 //        table_layout = findViewById(R.id.tableLayout);
 
 
@@ -45,7 +45,7 @@ public class PacketDisplayActivity extends AppCompatActivity {
         if(savedInstanceState==null){
             new reader().execute();
         }
-        else showPackets.setEnabled(true);
+//        else showPackets.setEnabled(true);
 
 //        showPackets.setOnClickListener(v -> buildTable(10));
         adapter = new PacketsAdapter(this,packetList);
@@ -112,7 +112,7 @@ public class PacketDisplayActivity extends AppCompatActivity {
         TextView t = findViewById(R.id.textView7);
         t.setText(result);
         haveFileReaded = true;
-        showPackets.setEnabled(true);
+//        showPackets.setEnabled(true);
     }
 
 }

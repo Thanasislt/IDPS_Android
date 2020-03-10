@@ -46,7 +46,7 @@ public class CaptureActivity extends AppCompatActivity  {
             pickerValues[i] = ""+i;
         }
 
-        command = "su -c "+ binaryHelper.getBinaryFile(activityreference)+" -Ul --immediate-mode " +"-i any"+" -w " +getExternalFilesDir(null).getAbsolutePath()+ "/capture.pcap";
+        command = "su -c "+ binaryHelper.getBinaryFile(activityreference)+" -Ul --immediate-mode "+" -w " +getExternalFilesDir(null).getAbsolutePath()+ "/capture.pcap";
 
         npvH = findViewById(R.id.pickerHour);
         npvM = findViewById(R.id.pickerMinute);
@@ -200,8 +200,7 @@ public class CaptureActivity extends AppCompatActivity  {
 
     void UpdateSettings() {
 
-        CheckBox all, tcp, udp, icmp,igmp;
-        all = findViewById(R.id.checkBoxAll);
+        CheckBox tcp, udp, icmp,igmp;
         tcp = findViewById((R.id.checkBoxTcp));
         udp = findViewById((R.id.checkBoxUdp));
         icmp = findViewById((R.id.checkBoxIcmp));
@@ -237,5 +236,17 @@ public class CaptureActivity extends AppCompatActivity  {
                 options += " igmp";
             //countChecks++;
         }
+
+        if(selected_Interfaces.size()>0){
+            options+=" -i ";
+            for(int i =0 ;i<selected_Interfaces.size();i++){
+                //options+=
+            }
+        }
+        else {
+            options+=" -i any";
+        }
+
+
     }
 }

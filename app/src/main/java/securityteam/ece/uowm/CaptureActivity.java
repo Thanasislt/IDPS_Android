@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.Spinner;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +31,7 @@ public class CaptureActivity extends AppCompatActivity  {
     private String command;
     NumberPickerView npvH,npvM,npvS;
     private String options;
+    private String captureInterface = "any";
 
 
     @Override
@@ -36,7 +39,7 @@ public class CaptureActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_capture);
         String headerText = "Interfaces";
-        final Spinner spinner = findViewById(R.id.my_spinner);
+//        final Spinner spinner = findViewById(R.id.my_spinner);
         final int[] captureDuration = {0};
         activityreference = new WeakReference<>(this);
         String[] all_objects = null;
@@ -119,30 +122,44 @@ public class CaptureActivity extends AppCompatActivity  {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        for(String interface_Name : all_Interfaces) {
-            spinner_items.add(new CheckableSpinnerAdapter.SpinnerItem<>(interface_Name, interface_Name));
-        }
-        CheckBox checkBoxAll = findViewById(R.id.checkBoxInterfaceAny);
-        checkBoxAll.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked){
-                selected_Interfaces.clear();
+        RadioGroup rg = findViewById(R.id.radioGroup_Interfaces);
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                captureInterface = ((RadioButton)group.findViewById(group.getCheckedRadioButtonId())).getText().toString();
+                UpdateSettings();
             }
         });
+        RadioButton rb;
+        for(String interface_Name : all_Interfaces) {
+//            spinner_items.add(new CheckableSpinnerAdapter.SpinnerItem<>(interface_Name, interface_Name));
+           rb = new RadioButton(this);
+            rb.setText(interface_Name);
+            rb.setId(View.generateViewId());
+            rg.addView(rb);
+
+        }
+//        CheckBox checkBoxAll = findViewById(R.id.checkBoxInterfaceAny);
+//        checkBoxAll.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//            if (isChecked){
+//                selected_Interfaces.clear();
+//            }
+//        });
 
 
 
-        CheckableSpinnerAdapter.AdapterCallback callback = selected_items -> {
-            Log.d("CheckedInterfaces",""+selected_items.size());
-            if(selected_items.size()==0){
-                ((CheckBox)findViewById(R.id.checkBoxInterfaceAny)).setChecked(true);
-            }
-            else if (selected_items.size() == all_Interfaces.size()){
-                ((CheckBox)findViewById(R.id.checkBoxInterfaceAny)).setChecked(true);
-            }
-            else ((CheckBox)findViewById(R.id.checkBoxInterfaceAny)).setChecked(false);
-        };
-        CheckableSpinnerAdapter adapter = new CheckableSpinnerAdapter<>(this, headerText, spinner_items, selected_Interfaces,callback);
-        spinner.setAdapter(adapter);
+//        CheckableSpinnerAdapter.AdapterCallback callback = selected_items -> {
+//            Log.d("CheckedInterfaces",""+selected_items.size());
+//            if(selected_items.size()==0){
+//                ((CheckBox)findViewById(R.id.checkBoxInterfaceAny)).setChecked(true);
+//            }
+//            else if (selected_items.size() == all_Interfaces.size()){
+//                ((CheckBox)findViewById(R.id.checkBoxInterfaceAny)).setChecked(true);
+//            }
+//            else ((CheckBox)findViewById(R.id.checkBoxInterfaceAny)).setChecked(false);
+//        };
+//        CheckableSpinnerAdapter adapter = new CheckableSpinnerAdapter<>(this, headerText, spinner_items, selected_Interfaces,callback);
+//        spinner.setAdapter(adapter);
 
 
         findViewById(R.id.start_tcpdump).setOnClickListener(v -> {
@@ -176,7 +193,7 @@ public class CaptureActivity extends AppCompatActivity  {
         super.onStart();
         new Handler().postDelayed(() -> {
             npvH.smoothScrollToValue(0);
-            npvM.smoothScrollToValue(0);
+            npvM.smoothScrollToValue(2);
             npvS.smoothScrollToValue(0);
         },500);
     }
@@ -237,15 +254,16 @@ public class CaptureActivity extends AppCompatActivity  {
             //countChecks++;
         }
 
-        if(selected_Interfaces.size()>0){
-            options+=" -i ";
-            for(int i =0 ;i<selected_Interfaces.size();i++){
-                //options+=
-            }
-        }
-        else {
-            options+=" -i any";
-        }
+        options+=" -i " + captureInterface;
+//        if(selected_Interfaces.size()>0){
+//            options+=" -i ";
+//            for(int i =0 ;i<selected_Interfaces.size();i++){
+//                //options+=
+//            }
+//        }
+//        else {
+//            options+=" -i any";
+//        }
 
 
     }

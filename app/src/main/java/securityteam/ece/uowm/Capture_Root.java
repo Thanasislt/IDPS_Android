@@ -21,17 +21,17 @@ public  class Capture_Root {
     static Process captureProcess = null;
     static CountDownTimer cdt;
     static AsyncTask captureTask = null;
-    static WeakReference<Activity> activityReference;
+    private static WeakReference<Activity> weakReference;
 
     public Capture_Root(WeakReference<Activity> activityReference){
-        this.activityReference = activityReference;
+        weakReference = activityReference;
         if (tcpdump == null ) tcpdump = new binaryHelper().getBinaryFile(activityReference);
         try{
             if (tcpdump!=null) {
-                captureLocation = activityReference.get().getExternalFilesDir(null).getAbsolutePath();
+                captureLocation = weakReference.get().getExternalFilesDir(null).getAbsolutePath();
             }
             else{
-                Toast.makeText(activityReference.get(),"Capture_Root: Binary file is null! ",Toast.LENGTH_LONG).show();
+                Toast.makeText(weakReference.get(),"Capture_Root: Binary file is null! ",Toast.LENGTH_LONG).show();
             }
 
         }catch(Exception e){
@@ -41,9 +41,9 @@ public  class Capture_Root {
     }
     public static void Capture(final Context context,final String command,final int captureDurationSeconds)  {
         NumberPickerView npvH,npvM,npvS;
-        npvH = activityReference.get().findViewById(R.id.pickerHour);
-        npvM = activityReference.get().findViewById(R.id.pickerMinute);
-        npvS = activityReference.get().findViewById(R.id.pickerSecond);
+        npvH = weakReference.get().findViewById(R.id.pickerHour);
+        npvM = weakReference.get().findViewById(R.id.pickerMinute);
+        npvS = weakReference.get().findViewById(R.id.pickerSecond);
         captureTask= new AsyncTask<Void, Void, Void>()  {
             @Override
             protected Void doInBackground(Void... voids) {
@@ -82,7 +82,7 @@ public  class Capture_Root {
 
 
             public void onTick(long millisUntilFinished) {
-                if (activityReference != null) {
+                if (weakReference != null) {
                     long millis = millisUntilFinished % 1000;
                     long second = (millisUntilFinished / 1000) % 60;
                     long minute = (millisUntilFinished / (1000 * 60)) % 60;
@@ -96,7 +96,7 @@ public  class Capture_Root {
 
             public void onFinish() {
                 StopCapture();
-                if (activityReference != null) {
+                if (weakReference != null) {
                     npvH.smoothScrollToValue(0);
                     npvM.smoothScrollToValue(0);
                     npvS.smoothScrollToValue(0);
@@ -111,11 +111,11 @@ public  class Capture_Root {
 
     }
     public static void StopCapture()  {
-        if (activityReference==null) return;
+        if (weakReference==null) return;
         NumberPickerView npvH,npvM,npvS;
-        npvH = activityReference.get().findViewById(R.id.pickerHour);
-        npvM = activityReference.get().findViewById(R.id.pickerMinute);
-        npvS = activityReference.get().findViewById(R.id.pickerSecond);
+        npvH = weakReference.get().findViewById(R.id.pickerHour);
+        npvM = weakReference.get().findViewById(R.id.pickerMinute);
+        npvS = weakReference.get().findViewById(R.id.pickerSecond);
         if(captureProcess!=null && captureIsActive ){
             try{
                 Log.d("Capture","Trying to kill...");
